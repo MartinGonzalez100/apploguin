@@ -32,6 +32,13 @@ const Providers = () => {
             setFilter(midata)
         })
         .catch(err=>console.log('error providers desde fornt'))
+        axios('http://localhost:8081/providerscols')
+        .then(res=>{
+            const fieldc = res.data.map(field=>field.Field)
+            //console.log(res.data)
+            console.log(fieldc)
+        })
+        .catch(err=>console.log('error providerscols desde fornt'))
     },[])
   return (
     <div className=''>

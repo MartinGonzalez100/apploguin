@@ -41,6 +41,7 @@ const Login = () => {
         axios.get('http://localhost:8081/')
         .then(res=> console.log(res.data['Wi-Fi'][3].address))
         .catch(err=>console.log(err))
+        
     },[])
   return (
     <>

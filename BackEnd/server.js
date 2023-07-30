@@ -76,6 +76,15 @@ app.get('/providers',(req, res)=>{
         }
     )
 })
+app.get('/providerscols',(req,res)=>{
+    db.query(
+        'SHOW COLUMNS from providers',
+        (err, result)=>{
+            if(err) return res.json('error al listar columnas en back')
+            return res.json(result)
+        }
+    )
+})
 
 //posible detalle de titulos pero solo si esta en la tabla schema
 /*app.get('/tit',(req, res)=>{
