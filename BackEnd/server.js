@@ -51,7 +51,7 @@ const db = mysql.createConnection({
     user: 'root',
     password: "",
     database: 'signup',
-    port:'3308'
+    port:'3306'
 })
 
 app.get('/',(req, res)=>{
