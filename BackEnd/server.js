@@ -76,6 +76,29 @@ app.get('/providers',(req, res)=>{
         }
     )
 })
+app.post('/providernew',(req, res)=>{
+    db.query(
+        'insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`dateupdate`) values (?)',
+        [
+            req.body.name,
+            req.body.businessname,
+            req.body.cuit,
+            req.body.iibb,
+            req.body.tem,
+            req.body.iva,
+            req.body.gan,
+            req.body.suss,
+            req.body.cellphone,
+            req.body.address,
+            req.body.cbu,
+            req.body.dateupdate
+        ],
+        (err, result)=>{
+            if(err) return res.json('erroa a dar el alta al los proveedores backend')
+            return res.json(result)
+        }
+    )
+})
 app.get('/providerscols',(req,res)=>{
     db.query(
         'SHOW COLUMNS from providers',

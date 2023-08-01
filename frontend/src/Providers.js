@@ -41,7 +41,7 @@ const Providers = () => {
         .catch(err=>console.log('error providerscols desde fornt'))
     },[])
   return (
-    <div className=''>
+    <div className='mt-3'>
         <div className="container input-group mb-3">
             <span className="input-group-text"><ImSearch /></span>
             <div className="form-floating">
