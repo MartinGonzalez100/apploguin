@@ -109,6 +109,60 @@ app.get('/providerscols',(req,res)=>{
     )
 })
 
+{/*aqui estalo copiado de printers, uniendo proyectos*/ }
+
+app.get('/printer', (req, res)=>{
+    db.query(
+        "select * from printer",
+        (err, result)=>{
+            if(err) return res.json('error al consultar printer en el server')
+            return res.json(result)
+        }
+    )
+})
+app.put('/updateprinter/:id',(req,res)=>{
+    console.log('LLEGAN datos en back: '+req.params.id+req.body.piso+ req.body.oficina)
+    db.query(
+        `UPDATE printer SET 
+            piso= ?, 
+            oficina=?,
+            marca=?,
+            modelo=?,
+            toner=?,
+            utilidad=?,
+            obs=?,
+            fecha=?,
+            numeroserie=?,
+            fechabaja=?,
+            direccionip=?,
+            empresa=? 
+            WHERE idprinter=${req.params.id}`,
+        [
+            req.body.piso,
+            req.body.oficina,
+            req.body.marca,
+            req.body.modelo,
+            req.body.toner,
+            req.body.utilidad,
+            req.body.obs,
+            req.body.fecha,
+            req.body.numeroserie,
+            req.body.fechabaja,
+            req.body.direccionip,
+            req.body.empresa
+        ],
+        (err, result)=>{
+            if(err) return res.json('error al actualizar back')
+            return res.json({result, dc:req.params.id+req.body.piso+ req.body.oficina})
+        }
+
+    )
+})
+
+
+
+{/*hasta aqui estalo copiado de printers, uniendo proyectos*/ }
+
 //posible detalle de titulos pero solo si esta en la tabla schema
 /*app.get('/tit',(req, res)=>{
     const sql = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = users`;

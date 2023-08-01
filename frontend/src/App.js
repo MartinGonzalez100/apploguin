@@ -7,6 +7,7 @@ import View from './View'
 import Title from './Title'
 import Providers from './Providers'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Printer from './Printer';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/title' element={<Title />} />
         <Route path='/providers' element={<Providers />} />
+        <Route path='/printer' element={<Printer />} />
       </Routes>
       
     </BrowserRouter>
