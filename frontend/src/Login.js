@@ -15,12 +15,14 @@ const Login = () => {
 
     const handleInput = (e)=>{
         e.preventDefault()
+        console.log('values dentro del handle')
+        console.log(values)
         axios.post('http://localhost:8081/login', values)
         .then(res=>{
             if(res.data.Exists){
                 navigate('/view')
             }else{
-                alert('usuario o contraseña incorrecta')
+                console.log('usuario o contraseña incorrecta')
             }
         })
         .catch(err=>console.log(err))
@@ -31,15 +33,19 @@ const Login = () => {
             ...prev,
             [e.target.name]:[e.target.value]
         }))
-        console.log(values.email)
-        console.log(values.password)
+        console.log(values.email+"-"+e.target.value)
+        console.log(values.password+"-"+e.target.value)
     }
 
    // axios.defaults.withCredentials = true
     
     useEffect(()=>{
         axios.get('http://localhost:8081/')
-        .then(res=> console.log(res.data['Wi-Fi'][3].address))
+        .then(res=> {
+            //console.log(res.data['Wi-Fi'][3].address)//casa
+            //console.log(res)
+            console.log(res.data.SLEVIN[1].address)//trabajo
+        })
         .catch(err=>console.log(err))
         
     },[])

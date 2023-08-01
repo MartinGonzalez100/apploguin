@@ -55,7 +55,7 @@ const Printer = () => {
 
     }
     useEffect(()=>{
-        axios('http://localhost:8085/printer')
+        axios('http://localhost:8081/printer')
         .then(res=>{
             console.log(res.data)
             setData(res.data)
@@ -83,32 +83,32 @@ const Printer = () => {
                         <th scope="col">obs</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className=''>
                         {
                         data.map((d,i)=>(
-                            <tr key={i}>            
-                                <td>
+                            <tr key={i} className=''>            
+                                <td className=" ">
                                     <button 
                                         onClick={()=>{
                                             handleDatos(d)                                            
                                         }}
-                                        className="btn btn-light"
+                                        className="btn btn-light "
                                         data-bs-toggle="modal" data-bs-target="#staticBackdropVer">
-                                            <AiOutlineEye />
+                                            <AiOutlineEye className=''/>
                                     </button>
-                                    <button 
+                                    {<button 
                                         onClick={()=>{
                                             handleDatos(d)
                                             //setDatosEditar(d)
                                             //console.log(d)
                                         }}
-                                        className="btn btn-light"
+                                        className="btn btn-light "
                                         data-bs-toggle="modal" data-bs-target="#staticBackdropEditar">
                                             <AiOutlineEdit />
-                                    </button>
-                                </td>
+                                    </button>}
+                                </td >
                                 <td>{d.piso}</td>
-                                <td>{d.oficina}</td>                            
+                                <td className=''>{d.oficina}</td>                            
                                 <td>{d.marca}</td>                            
                                 <td>{d.modelo}</td>                            
                                 <td>{d.empresa}</td>                            

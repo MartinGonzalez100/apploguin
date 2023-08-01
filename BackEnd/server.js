@@ -51,18 +51,20 @@ const db = mysql.createConnection({
     user: 'root',
     password: "",
     database: 'signup',
-    port:'3306'
+    port:'3306'//trabajo
+    //port:'3308'//trabajo
+
 })
 
 app.get('/',(req, res)=>{
-   /* db.query(
+   /*db.query(
         'select * from users',
         (err, result)=>{
             if(err) return res.json('error al hacer la consulta')
             return res.json(result)
         }
     )*/
-   // console.log(networkInterfaces)
+    //console.log(networkInterfaces)
     return res.json(networkInterfaces)
 })
 
@@ -233,6 +235,7 @@ app.post('/signup', (req, res)=>{
 
 app.post('/login', (req, res)=>{
     const sql = "SELECT * FROM users where email= ?"
+    console.log('en el back: '+req.body.email)
     db.query(sql, [req.body.email], (err, result)=>{
         if(err) return res.json({Message: "error en el db.query"})
         if(result.length > 0) {
