@@ -100,6 +100,8 @@ const Providers = () => {
                         <th scope="col">IVA</th>
                         <th scope="col">GAN</th>
                         <th scope="col">SUSS</th>
+                        <th scope="col">Cell Phone</th>
+                        <th scope="col">address</th>
                     </tr>
                 </thead>
                 <tbody className='table-light'>
@@ -134,6 +136,8 @@ const Providers = () => {
                                 <td>{d.iva}</td>                            
                                 <td>{d.gan}</td>                            
                                 <td>{d.suss}</td>                            
+                                <td>{d.cellphone}</td>                            
+                                <td>{d.address}</td>                            
                             </tr>
                         )
                     )}
@@ -150,18 +154,18 @@ const Providers = () => {
             </div>
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">           
-                <input name='piso' placeholder='cargar piso' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.piso}></input>
-                <input name='oficina' placeholder='cargar oficina' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.oficina}></input>
-                <input name='marca' placeholder='cargar marca' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.marca}></input>
-                <input name='modelo' placeholder='cargar modelo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.modelo}></input>
-                <input name='toner' placeholder='cargar toner' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.toner }></input>
-                <input name='utilidad' placeholder='cargar utilidad' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.utilidad}></input>
-                <input name='obs' placeholder='cargar observacion' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.obs}></input>
-                <input name='fecha' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.fecha}></input>
-                <input name='numeroserie' placeholder='cargar numero serie' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.numeroserie}></input>
-                <input name='fechabaja' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.fechabaja}></input>
-                <input name='direccionip' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.direccionip}></input>
-                <input name='empresa' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.empresa}></input>
+                <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.name}></input>
+                <input name='businessname' placeholder='cargar oficina' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.businessname}></input>
+                <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cuit}></input>
+                <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iibb}></input>
+                <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.tem }></input>
+                <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iva}></input>
+                <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.gan}></input>
+                <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.suss}></input>
+                <input name='cellphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cellphone}></input>
+                <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.address}></input>
+                <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cbu}></input>
+                <input name='dataupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.dateupdate}></input>
                 </div>
                 
             </div>
@@ -185,20 +189,20 @@ const Providers = () => {
                     {/*<div className='row'>
                         <label className='col-sm-2 col-form-label'>Piso:</label>
                                     <div className='col-sm-10'>*/}
-                            <input name='piso' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.piso}></input>
+                            <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
                         {/*</div>
                     </div> */}
-                <input name='oficina' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.oficina}></input>
-                <input name='marca' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.marca}></input>
-                <input name='modelo' placeholder='cargar modelo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.modelo}></input>
-                <input name='toner' placeholder='cargar toner' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.toner }></input>
-                <input name='utilidad' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.utilidad}></input>
-                <input name='obs' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.obs}></input>
-                <input name='fecha' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.fecha}></input>
-                <input name='numeroserie' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.numeroserie}></input>
-                <input name='fechabaja' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.fechabaja}></input>
-                <input name='direccionip' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.direccionip}></input>
-                <input name='empresa' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' defaultValue={datosEditar.empresa}></input>
+                <input name='businessnme' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
+                <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
+                <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
+                <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
+                <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
+                <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
+                <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
+                <input name='celphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
+                <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
+                <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>
+                <input name='dateupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' defaultValue={datosEditar.dateupdate}></input>
                 </div>
                 
             </div>
