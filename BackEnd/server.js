@@ -78,8 +78,49 @@ app.get('/providers',(req, res)=>{
         }
     )
 })
-app.post('/providernew',(req, res)=>{
+app.put('/updateprovider/:id',(req,res)=>{
+    console.log("llega al backend id: "+req.params.id+" name: "+req.body.name)
     db.query(
+        `update providers set
+            name=?,
+            businessname=?,        
+            cuit=?,        
+            iibb=?,        
+            tem=?,        
+            iva=?,        
+            gan=?,        
+            suss=?,        
+            cellphone=?,        
+            address=?,        
+            cbu=?,        
+            factura=?,        
+            dateupdate=? where idproviders=${req.params.id}        
+        `,
+        [
+            req.body.name,
+            req.body.businessname,
+            req.body.cuit,
+            req.body.iibb,
+            req.body.tem,
+            req.body.iva,
+            req.body.gan,
+            req.body.suss,
+            req.body.cellphone,
+            req.body.address,
+            req.body.cbu,
+            req.body.factura,
+            req.body.dateupdate,
+        ],
+        (err,result)=>{
+            if(err) return res.json("error al actualizar providers en el backend")
+            return res.json(result)
+        }
+
+    )
+})
+app.post('/providernew',(req, res)=>{
+    console.log("datos en el backend: "+req.body.name+req.body.businessname)
+    /*db.query(
         'insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`dateupdate`) values (?)',
         [
             req.body.name,
@@ -93,13 +134,14 @@ app.post('/providernew',(req, res)=>{
             req.body.cellphone,
             req.body.address,
             req.body.cbu,
+            req.body.factura,
             req.body.dateupdate
         ],
         (err, result)=>{
             if(err) return res.json('erroa a dar el alta al los proveedores backend')
             return res.json(result)
         }
-    )
+    )*/
 })
 app.get('/providerscols',(req,res)=>{
     db.query(
