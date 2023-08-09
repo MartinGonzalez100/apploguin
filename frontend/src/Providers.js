@@ -186,23 +186,19 @@ const Providers = () => {
             </div>
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">
-                    {/*<div className='row'>
-                        <label className='col-sm-2 col-form-label'>Piso:</label>
-                                    <div className='col-sm-10'>*/}
-                            <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
-                        {/*</div>
-                    </div> */}
-                <input name='businessnme' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
-                <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
-                <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
-                <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
-                <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
-                <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
-                <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
-                <input name='celphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
-                <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
-                <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>
-                <input name='dateupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' defaultValue={datosEditar.dateupdate}></input>
+                   
+                    <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
+                    <input name='businessnme' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
+                    <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
+                    <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
+                    <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
+                    <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
+                    <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
+                    <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
+                    <input name='celphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
+                    <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
+                    <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>
+                    <input name='dateupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' defaultValue={datosEditar.dateupdate}></input>
                 </div>
                 
             </div>
