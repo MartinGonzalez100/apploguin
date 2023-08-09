@@ -10,6 +10,7 @@ const Providers = () => {
     const [data, setData]=useState([])
     const [filter, setFilter]=useState([])
     const [datosEditar, setDatosEditar] = useState([])
+    const [actualizar, setActualizar] = useState("")
     const handleDatos = (data)=>{
         setDatosEditar( prev=>({
             ...prev,
@@ -28,20 +29,23 @@ const Providers = () => {
     }
     const handleEdit = (registro)=>{
         //editar en base de datos
-        /*console.log('edit en front: '+registro.idprinter)
+        console.log('edit en front: '+registro.idproviders)
         console.log(registro)
-        axios.put(`http://localhost:8085/updateprinter/${registro.idprinter}`, registro)
+        axios.put(`http://localhost:8081/updateprovider/${registro.idproviders}`, registro)
         .then(res=>{
             console.log('registro actualizado en front')
             console.log(res)
-            setData(data.map(d=>{
-                if(d.idprinter===registro.idprinter){
+            const datosEditados = data.map(d=>{
+                if(d.idproviders===registro.idproviders){
                     return registro
                 }
                 return d
-            }))
+            })
+            setData(datosEditados)
+            setActualizar(`${registro.idproviders}`)
+
         })
-        .catch(err=>console.log(err))*/
+        .catch(err=>console.log(err))
 
     }
     const handleSearch = (event)=>{
@@ -75,7 +79,7 @@ const Providers = () => {
             console.log(fieldc)
         })
         .catch(err=>console.log('error providerscols desde fornt'))
-    },[])
+    },[actualizar])
   return (
     <>
         <div className='mt-3'>
@@ -100,8 +104,8 @@ const Providers = () => {
                         <th scope="col">IVA</th>
                         <th scope="col">GAN</th>
                         <th scope="col">SUSS</th>
-                        <th scope="col">Cell Phone</th>
-                        <th scope="col">address</th>
+                        <th scope="col">FACTURA</th>
+                        
                     </tr>
                 </thead>
                 <tbody className='table-light'>
@@ -136,8 +140,8 @@ const Providers = () => {
                                 <td>{d.iva}</td>                            
                                 <td>{d.gan}</td>                            
                                 <td>{d.suss}</td>                            
-                                <td>{d.cellphone}</td>                            
-                                <td>{d.address}</td>                            
+                                <td>{d.factura}</td>                            
+                                                            
                             </tr>
                         )
                     )}
@@ -162,6 +166,7 @@ const Providers = () => {
                 <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iva}></input>
                 <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.gan}></input>
                 <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.suss}></input>
+                <input name='factura' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.factura}></input>
                 <input name='cellphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cellphone}></input>
                 <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.address}></input>
                 <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cbu}></input>
@@ -195,6 +200,7 @@ const Providers = () => {
                     <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
                     <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
                     <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
+                    <input name='factura' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.factura}></input>
                     <input name='celphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
                     <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
                     <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>

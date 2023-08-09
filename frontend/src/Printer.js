@@ -40,7 +40,7 @@ const Printer = () => {
         //editar en base de datos
         console.log('edit en front: '+registro.idprinter)
         console.log(registro)
-        axios.put(`http://localhost:8085/updateprinter/${registro.idprinter}`, registro)
+        axios.put(`http://localhost:8081/updateprinter/${registro.idprinter}`, registro)
         .then(res=>{
             console.log('registro actualizado en front')
             console.log(res)
