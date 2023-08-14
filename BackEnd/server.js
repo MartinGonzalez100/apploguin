@@ -119,7 +119,7 @@ app.put('/updateprovider/:id',(req,res)=>{
     )
 })
 app.post('/providernew',(req, res)=>{
-    console.log("datos en el backend: "+req.body.name+req.body.businessname)
+    console.log("datos en el backend: "+req.body.name+"-"+req.body.businessname)
     /*db.query(
         'insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`dateupdate`) values (?)',
         [
