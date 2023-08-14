@@ -27,6 +27,21 @@ const Providers = () => {
         }))
         console.log('valor: '+event.target.value)
     }
+    const handleNew = (registro)=>{
+        console.log('alta en front: '+registro.name)
+        console.log(registro)
+        axios.post('http://localhost:8081/providernew', registro)
+        .then(res=>{
+
+            console.log(res)
+            console.log('registro de alta en front')
+            
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+    }
     const handleEdit = (registro)=>{
         //editar en base de datos
         console.log('edit en front: '+registro.idproviders)
@@ -89,7 +104,12 @@ const Providers = () => {
                     <input onChange={handleSearch} type="text" className="form-control" id="floatingInputGroup1" placeholder="Username" />
                     <label htmlFor="floatingInputGroup1">Name</label>
                 </div>
-                <span className="input-group-text"><MdLibraryAdd className=''/></span>
+                <span className="input-group-text">
+                    <button className="btn btn-light " data-bs-toggle="modal" data-bs-target="#staticBackdropAlta">
+
+                        <MdLibraryAdd className=''/>
+                    </button>
+                </span>
             </div>
             <table className="table table-dark table-striped table-hover">
                 <thead>
@@ -147,6 +167,39 @@ const Providers = () => {
                     )}
                 </tbody>    
             </table>
+        </div>
+        {/*modal para altas datos */}
+        <div className="modal fade" id="staticBackdropAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="staticBackdropLabel">Formulario de Alta</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <div className="d-flex flex-column mb-3">           
+                <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='businessname' placeholder='cargar businessname' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='factura' placeholder='cargar factura' className='form-control rounded-3 mb-1' onChange={handleChange}></input>
+                <input name='cellphone' placeholder='cargar cellphone' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='address' placeholder='cargar address' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='cbu' placeholder='cargar cbu' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='dataupdate' placeholder='cargar dataupdate' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                </div>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onClick={()=>{handleNew(datosEditar)}} type="button" className="btn btn-info" data-bs-dismiss="modal">Alta</button>
+            </div>
+            </div>
+            </div>
         </div>
         {/*modal para editar datos */}
         <div className="modal fade" id="staticBackdropEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
