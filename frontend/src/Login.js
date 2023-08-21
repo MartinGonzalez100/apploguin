@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import View from './View'
+//import View from './View'
 import axios from 'axios'
 
 
+
+
 const Login = () => {
+
+    //const PORT_MYSQL = 3308  //casa
+    //const PORT_MYSQL = 3306   //trabajo
 
     const [values, setValues]= useState({
         email:'',
@@ -42,9 +47,9 @@ const Login = () => {
     useEffect(()=>{
         axios.get('http://localhost:8081/')
         .then(res=> {
-            //console.log(res.data['Wi-Fi'][3].address)//casa
+            console.log(res.data['Wi-Fi'][3].address)//casa
             //console.log(res)
-            console.log(res.data.SLEVIN[1].address)//trabajo
+            //console.log(res.data.SLEVIN[1].address)//trabajo
         })
         .catch(err=>console.log(err))
         
