@@ -4,6 +4,7 @@ import { ImSearch } from "react-icons/im";
 import { MdLibraryAdd } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const Providers = () => {
 
@@ -41,6 +42,17 @@ const Providers = () => {
             console.log(err)
         })
 
+    }
+    const handleDelete = (registro)=>{
+        console.log('en handleDelete eliminacion id :'+registro.idproviders)
+        axios.delete(`http://localhost:8081/providerdelete/${registro.idproviders}`)
+        .then(res=>{
+            console.log('se elimino registro en el front id: '+registro.idproviders)
+
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
     const handleEdit = (registro)=>{
         //editar en base de datos
@@ -140,7 +152,7 @@ const Providers = () => {
                                             data-bs-toggle="modal" data-bs-target="#staticBackdropVer">
                                                 <AiOutlineEye className=''/>
                                         </button>
-                                        {<button 
+                                        <button 
                                             onClick={()=>{
                                                 handleDatos(d)
                                                 //setDatosEditar(d)
@@ -149,7 +161,17 @@ const Providers = () => {
                                             className="btn btn-light "
                                             data-bs-toggle="modal" data-bs-target="#staticBackdropEditar">
                                                 <AiOutlineEdit />
-                                        </button>}
+                                        </button>
+                                        <button 
+                                            onClick={()=>{
+                                                handleDatos(d)
+                                                //setDatosEditar(d)
+                                                //console.log(d)
+                                            }}
+                                            className="btn btn-light "
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdropEliminar">
+                                                <AiOutlineDelete />
+                                        </button>
                                 </td >                  
                                 <td>{d.idproviders}</td>                            
                                 <td>{d.name}</td>                            
@@ -167,6 +189,32 @@ const Providers = () => {
                     )}
                 </tbody>    
             </table>
+        </div>
+        {/*modal para ver datos */}
+        <div className="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="staticBackdropLabel">Formulario de Eliminacion</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <h3>ELIMINAR este registro!!!!</h3>
+                <div className="d-flex flex-column mb-3">
+                   
+                    <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
+                    <input name='businessnme' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
+                    <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
+                    
+                </div>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onClick={()=>{handleDelete(datosEditar)}} type="button" className="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+            </div>
+        </div>
         </div>
         {/*modal para altas datos */}
         <div className="modal fade" id="staticBackdropAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

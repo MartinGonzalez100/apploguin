@@ -15,8 +15,8 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-const PORT_MYSQL = 3308  //casa
-//const PORT_MYSQL = 3306   //trabajo
+//const PORT_MYSQL = 3308  //casa
+const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
@@ -77,6 +77,16 @@ app.get('/providers',(req, res)=>{
         'select * from providers',
         (err,result)=>{
             if(err) return res.json('error en el select providers')
+            return res.json(result)
+        }
+    )
+})
+app.delete('/providerdelete/:id',(req,res)=>{
+    console.log('llega al backend id: '+req.params.id)
+    db.query(
+        `delete form providers where idprovider = ${req.params.id}`,
+        (err, result)=>{
+            if(err) return res.json('error en backend al borrar providers')
             return res.json(result)
         }
     )
