@@ -35,7 +35,7 @@ const Providers = () => {
 
             console.log(res)
             console.log('registro de alta en front')
-            
+
         })
         .catch(err=>{
             console.log(err)
