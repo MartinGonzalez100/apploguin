@@ -15,6 +15,9 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
+const PORT_MYSQL = 3308  //casa
+//const PORT_MYSQL = 3306   //trabajo
+
 //ver ip de pc servidor
 import os from 'os'
 
@@ -51,8 +54,8 @@ const db = mysql.createConnection({
     user: 'root',
     password: "",
     database: 'signup',
-    port:'3306'//trabajo
-    //port:'3308'//trabajo
+    port:`${PORT_MYSQL}`//casa
+    //port:'3306'//trabajo
 
 })
 
@@ -120,28 +123,31 @@ app.put('/updateprovider/:id',(req,res)=>{
 })
 app.post('/providernew',(req, res)=>{
     console.log("datos en el backend: "+req.body.name+"-"+req.body.businessname)
-    /*db.query(
-        'insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`dateupdate`) values (?)',
-        [
-            req.body.name,
-            req.body.businessname,
-            req.body.cuit,
-            req.body.iibb,
-            req.body.tem,
-            req.body.iva,
-            req.body.gan,
-            req.body.suss,
-            req.body.cellphone,
-            req.body.address,
-            req.body.cbu,
-            req.body.factura,
-            req.body.dateupdate
-        ],
+    console.log(req.body)
+    
+    const values = [
+        req.body.name,
+        req.body.businessname,
+        req.body.cuit,
+        req.body.iibb,
+        req.body.tem,
+        req.body.iva,
+        req.body.gan,
+        req.body.suss,
+        req.body.cellphone,
+        req.body.address,
+        req.body.cbu,
+        req.body.factura,
+        req.body.dateupdate         
+    ]
+    db.query(
+        "insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`factura`,`dateupdate`) values (?)", 
+        [values],
         (err, result)=>{
-            if(err) return res.json('erroa a dar el alta al los proveedores backend')
+            if(err) return res.json('error a dar el alta al los proveedores backend')
             return res.json(result)
         }
-    )*/
+    )
 })
 app.get('/providerscols',(req,res)=>{
     db.query(
