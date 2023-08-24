@@ -11,7 +11,7 @@ const Providers = () => {
     const [data, setData]=useState([])
     const [filter, setFilter]=useState([])
     const [datosEditar, setDatosEditar] = useState([])
-    const [actualizar, setActualizar] = useState("")
+    const [actualizar, setActualizar] = useState(1)
     const handleDatos = (data)=>{
         setDatosEditar( prev=>({
             ...prev,
@@ -36,7 +36,7 @@ const Providers = () => {
 
             console.log(res)
             console.log('registro de alta en front')
-
+            setActualizar(actualizar*(-1))
         })
         .catch(err=>{
             console.log(err)
@@ -48,7 +48,7 @@ const Providers = () => {
         axios.delete(`http://localhost:8081/providerdelete/${registro.idproviders}`)
         .then(res=>{
             console.log('se elimino registro en el front id: '+registro.idproviders)
-
+            setActualizar(actualizar*(-1))
         })
         .catch(err=>{
             console.log(err)
@@ -69,7 +69,7 @@ const Providers = () => {
                 return d
             })
             setData(datosEditados)
-            setActualizar(`${registro.idproviders}`)
+            setActualizar(actualizar*(-1))
 
         })
         .catch(err=>console.log(err))
