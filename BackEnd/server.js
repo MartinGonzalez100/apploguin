@@ -84,7 +84,7 @@ app.get('/providers',(req, res)=>{
 app.delete('/providerdelete/:id',(req,res)=>{
     console.log('llega al backend id: '+req.params.id)
     db.query(
-        `delete form providers where idprovider = ${req.params.id}`,
+        `delete from providers where idproviders = ${req.params.id}`,
         (err, result)=>{
             if(err) return res.json('error en backend al borrar providers')
             return res.json(result)
