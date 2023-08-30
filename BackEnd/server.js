@@ -70,6 +70,16 @@ app.get('/',(req, res)=>{
     //console.log(networkInterfaces)
     return res.json(networkInterfaces)
 })
+//trabajando con general
+app.get('/general',(req, res)=>{
+    db.query(
+        'select * from gasto_gral',
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    )
+})
 
 //trabajo con providers// trabajando
 app.get('/providers',(req, res)=>{
