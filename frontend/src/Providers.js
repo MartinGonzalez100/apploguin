@@ -259,19 +259,19 @@ const Providers = () => {
             </div>
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">           
-                <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.name}></input>
-                <input name='businessname' placeholder='cargar oficina' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.businessname}></input>
-                <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cuit}></input>
-                <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iibb}></input>
-                <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.tem }></input>
-                <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iva}></input>
-                <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.gan}></input>
-                <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.suss}></input>
-                <input name='factura' placeholder='cargar fecha' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.factura}></input>
-                <input name='cellphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cellphone}></input>
-                <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.address}></input>
-                <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cbu}></input>
-                <input name='dataupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.dateupdate}></input>
+                <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.name}></input>
+                <input name='businessname' placeholder='cargar businessname' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.businessname}></input>
+                <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cuit}></input>
+                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iibb}></input>
+                <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.tem }></input>
+                <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iva}></input>
+                <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.gan}></input>
+                <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.suss}></input>
+                <input name='factura' placeholder='cargar tipo factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.factura}></input>
+                <input name='cellphone' placeholder='cargar numero cellphone' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cellphone}></input>
+                <input name='address' placeholder='cargar fecha address' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.address}></input>
+                <input name='cbu' placeholder='cargar direccion cbu' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cbu}></input>
+                <input name='dataupdate' placeholder='cargar empresa dateupdate' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.dateupdate}></input>
                 </div>
                 
             </div>
@@ -293,19 +293,19 @@ const Providers = () => {
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">
                    
-                    <input name='name' placeholder='cargar piso' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
-                    <input name='businessnme' placeholder='cargar oficina' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
-                    <input name='cuit' placeholder='cargar marca' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
-                    <input name='iibb' placeholder='cargar modelo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
-                    <input name='tem' placeholder='cargar toner' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
-                    <input name='iva' placeholder='cargar utilidad' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
-                    <input name='gan' placeholder='cargar observacion' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
-                    <input name='suss' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
-                    <input name='factura' placeholder='cargar fecha' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.factura}></input>
-                    <input name='celphone' placeholder='cargar numero serie' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
-                    <input name='address' placeholder='cargar fecha baja' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
-                    <input name='cbu' placeholder='cargar direccion ip' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>
-                    <input name='dateupdate' placeholder='cargar empresa prestadora' className='form-control rounded-3 mb-1' defaultValue={datosEditar.dateupdate}></input>
+                    <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
+                    <input name='businessnme' placeholder='cargar businessname' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
+                    <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
+                    <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
+                    <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
+                    <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
+                    <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
+                    <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
+                    <input name='factura' placeholder='cargar tipo factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.factura}></input>
+                    <input name='celphone' placeholder='cargar cellphone' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cellphone}></input>
+                    <input name='address' placeholder='cargar address' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.address}></input>
+                    <input name='cbu' placeholder='cargar cbu' className='form-control rounded-3 mb-1' defaultValue={datosEditar.cbu}></input>
+                    <input name='dateupdate' placeholder='cargar dateupdate' className='form-control rounded-3 mb-1' defaultValue={datosEditar.dateupdate}></input>
                 </div>
                 
             </div>

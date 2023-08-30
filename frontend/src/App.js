@@ -8,6 +8,7 @@ import Title from './Title'
 import Providers from './Providers'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Printer from './Printer';
+import General from './General';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/title' element={<Title />} />
         <Route path='/providers' element={<Providers />} />
         <Route path='/printer' element={<Printer />} />
+        <Route path='/general' element={<General />} />
       </Routes>
       
     </BrowserRouter>
