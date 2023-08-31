@@ -73,7 +73,7 @@ app.get('/',(req, res)=>{
 //trabajando con general
 app.get('/general',(req, res)=>{
     db.query(
-        'select * from gasto_gral',
+        'select * from gasto_gral order by id desc',
         (err, result)=>{
             if(err) return res.json('error en sql backend')
             return res.json(result)
