@@ -15,6 +15,14 @@ const General = () => {
 
     // Formatea la fecha en el formato deseado (día/mes/año)
     const optionsDates = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    //retorna fecha en formato dd/mm/aaaa
+    const formatoFecha = (fechaSinFormato)=>{
+        if(fechaSinFormato){
+            const optionsDates = { day: 'numeric', month: 'numeric', year: 'numeric' };
+            return new Date(fechaSinFormato).toLocaleDateString('es-ES', optionsDates)
+        }
+        return ""
+    }
 
     const handleDatos = (data)=>{
         setDatosEditar( prev=>({
@@ -24,39 +32,55 @@ const General = () => {
         //console.log(data)
         console.log(datosEditar)
     }
+    //retorna el proveedor de id solicitado en forma de arreglo ejemplo: nameProvider(idbuscado)['businessname']
     const nameProvider = (idprovider)=>{
-        const nameProviderId = dataProviders.find((provider)=>provider.idproviders === idprovider)
-        return nameProviderId
+        if(idprovider){
+            const nameProviderId = dataProviders.find((provider)=>provider.idproviders === idprovider)
+            return nameProviderId.businessname
+        }
+        return ""
     }
     const currencyFormat = (floatMoney)=>{
-        return floatMoney.toLocaleString('es-AR', {
-            style: 'currency',
-            currency: 'ARS', // Moneda argentina (pesos argentinos)
-            minimumFractionDigits: 2, // Número mínimo de decimales
-          });
+        if(floatMoney){
+            return floatMoney.toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS', // Moneda argentina (pesos argentinos)
+                minimumFractionDigits: 2, // Número mínimo de decimales
+              });
+
+        }
+        return ""
     }
 
     useEffect(()=>{
-        axios('http://localhost:8081/general')
-        .then(res=>{
-            console.log(res.data)
-            const midata = res.data
-            setDataGeneral(midata)
-            setFilter(midata)
-        })
-        .catch(err=>{
-            console.log('error en frontend sql general')
-        })
-        axios('http://localhost:8081/providers')
-        .then(res=>{
-            console.log(res.data)
-            setDataProviders(res.data)
-            //const nombre = dataProviders.find((p)=>p.idproviders===7)
-            //console.log('nombre :'+nombre.name)
-        })
-        .catch(err=>{
-            console.log('error en frontend sql providers')
-        })
+        const searchProviders = async ()=>{
+
+            await axios('http://localhost:8081/providers')
+            .then(res=>{
+                console.log(res.data)
+                setDataProviders(res.data)
+                //const nombre = dataProviders.find((p)=>p.idproviders===7)
+                //console.log('nombre :'+nombre.name)
+            })
+            .catch(err=>{
+                console.log('error en frontend sql providers')
+            })
+        }
+        searchProviders()
+        const searchGeneralFilter = async ()=>{
+
+            await axios('http://localhost:8081/general')
+            .then(res=>{
+                console.log(res.data)
+                const midata = res.data
+                setDataGeneral(midata)
+                setFilter(midata)
+            })
+            .catch(err=>{
+                console.log('error en frontend sql general')
+            })
+        }
+        searchGeneralFilter()
     },[])
   return (
     <>
@@ -120,7 +144,8 @@ const General = () => {
                                 </td >                  
                                 <td>{d.id}</td>                            
                                 <td>{d.id_providers}</td>                            
-                                <td>{nameProvider(d.id_providers)['businessname']}</td>                            
+                                                       
+                                <td>{nameProvider(d.id_providers)}</td>                            
                                 <td>{d.n_factura}</td>                            
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
                                 <td>{currencyFormat(d.importe_f)}</td>                            
@@ -139,7 +164,39 @@ const General = () => {
                 </tbody>    
             </table>
         </div>
-      
+      {/*modal para ver datos */}
+      <div className="modal fade" id="staticBackdropVer" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="staticBackdropLabel">Formulario de Informacion</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <div className="d-flex flex-column mb-3">
+                   
+                    <input name='businessname' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={nameProvider(datosEditar.id_providers)}></input>
+                    <input name='n_factura' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.n_factura}></input>
+                    <input name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' defaultValue={formatoFecha(datosEditar.f_factura)}></input>
+                    <input name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.importe_f)}></input>
+                    <input name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_tem)}></input>
+                    <input name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_iibb)}></input>
+                    <input name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_iva)}></input>
+                    <input name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_gan)}></input>
+                    <input name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_suss)}></input>
+                    <input name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.importe_pagar)}></input>
+                    <input name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.a_fondo}></input>
+                    <input name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.saldo_fondo)}></input>
+                </div>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+            </div>
+            </div>
+        </div>
+        </div>
     </>
   )
 }
