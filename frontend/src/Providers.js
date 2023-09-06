@@ -190,7 +190,7 @@ const Providers = () => {
                 </tbody>    
             </table>
         </div>
-        {/*modal para ver datos */}
+        {/*modal para eliminar datos */}
         <div className="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
             <div className="modal-content">
