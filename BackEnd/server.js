@@ -70,7 +70,61 @@ app.get('/',(req, res)=>{
     //console.log(networkInterfaces)
     return res.json(networkInterfaces)
 })
+
+//trabajando con viewgralname
+app.get('/viewgralname',(req, res)=>{
+    db.query(
+        'select * from viewgralname order by id desc',
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    )
+})
 //trabajando con general
+app.put('/updategeneral/:id',(req, res)=>{
+    console.log("llega al backend id: "+req.params.id
+        +" name: "+req.body.name
+        +" importe_f: "+req.body.importe_f
+        +" importe?pagar: "+req.body.importe_pagar
+        +" saldo: "+req.body.saldo_fondo)
+    db.query(
+        `update gasto_gral set
+            id_providers=?,
+            n_factura=?,        
+            f_factura=?,        
+            importe_f=?,        
+            desc_tem=?,  
+            desc_iibb=?,      
+            desc_iva=?,        
+            desc_gan=?,        
+            desc_suss=?,        
+            importe_pagar=?,        
+            a_fondo=?,        
+            saldo_fondo=? where id=${req.params.id}        
+        `,
+        [
+            req.body.id_providers,
+            req.body.n_factura,
+            req.body.f_factura,
+            req.body.importe_f,
+            req.body.desc_tem,
+            req.body.desc_iibb,
+            req.body.desc_iva,
+            req.body.desc_gan,
+            req.body.desc_suss,
+            req.body.importe_pagar,
+            req.body.a_fondo,
+            req.body.saldo_fondo            
+        ],
+        (err,result)=>{
+            if(err) return res.json("error al actualizar gasto_gral en el backend")
+            return res.json(result)
+        }
+
+    )
+})
+
 app.get('/general',(req, res)=>{
     db.query(
         'select * from gasto_gral order by id desc',
