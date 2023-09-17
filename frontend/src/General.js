@@ -208,15 +208,15 @@ const General = () => {
                                 <td>{d.name}</td>                            
                                 <td>{d.n_factura}</td>                            
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
-                                <td>{currencyFormat(d.importe_f)}</td>                            
+                                <td>{d.importe_f/*currencyFormat(d.importe_f)*/}</td>                            
                                 {/*<td>{d.desc_tem}</td>                            
                                 <td>{d.desc_iibb}</td>                            
                                 <td>{d.desc_iva}</td>                            
                                 <td>{d.desc_gan}</td>                            
                                         <td>{d.desc_suss}</td>      */}                      
-                                <td>{ currencyFormat(d.importe_pagar)}</td>                            
+                                <td>{ d.importe_pagar/* currencyFormat(d.importe_pagar) */}</td>                            
                                 <td>{d.a_fondo}</td>                            
-                                <td>{currencyFormat(d.saldo_fondo)}</td>                            
+                                <td>{d.saldo_fondo/* currencyFormat(d.saldo_fondo) */}</td>                            
                                                             
                             </tr>
                         )
@@ -237,15 +237,15 @@ const General = () => {
                     <input disabled name='name' placeholder='cargar numero factura' className='form-control rounded-3 mb-1' defaultValue={datosEditar.name}></input>
                     <input  name='n_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.n_factura}></input>
                     <input  name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={formatoFecha(datosEditar.f_factura)}></input>
-                    <input  name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.importe_f)}></input>
-                    <input  name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.desc_tem)}></input>
-                    <input  name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.desc_iibb)}></input>
-                    <input  name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.desc_iva)}></input>
-                    <input  name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.desc_gan)}></input>
-                    <input  name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.desc_suss)}></input>
-                    <input  name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.importe_pagar)}></input>
+                    <input  name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_f/*currencyFormat(datosEditar.importe_f)*/}></input>
+                    <input  name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
+                    <input  name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
+                    <input  name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
+                    <input  name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
+                    <input  name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
+                    <input  name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
                     <input  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
-                    <input  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={currencyFormat(datosEditar.saldo_fondo)}></input> 
+                    <input  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/* currencyFormat(datosEditar.saldo_fondo) */}></input> 
                 </div>
                 
             </div>
@@ -270,15 +270,15 @@ const General = () => {
                     <input disabled name='name' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
                     <input disabled name='n_factura' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.n_factura}></input>
                     <input disabled name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' defaultValue={formatoFecha(datosEditar.f_factura)}></input>
-                    <input disabled name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.importe_f)}></input>
-                    <input disabled name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_tem)}></input>
-                    <input disabled name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_iibb)}></input>
-                    <input disabled name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_iva)}></input>
-                    <input disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_gan)}></input>
-                    <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_suss)}></input>
-                    <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.importe_pagar)}></input>
+                    <input disabled name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_f/* currencyFormat(datosEditar.importe_f) */}></input>
+                    <input disabled name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
+                    <input disabled name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
+                    <input disabled name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
+                    <input disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
+                    <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
+                    <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
                     <input disabled name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.a_fondo}></input>
-                    <input disabled name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.saldo_fondo)}></input>
+                    <input disabled name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.saldo_fondo/* currencyFormat(datosEditar.saldo_fondo) */}></input>
                 </div>
                 
             </div>
