@@ -131,8 +131,8 @@ const Providers = () => {
                         <th scope="col">Name Fantasy</th>
                         <th scope="col">Business Name</th>
                         <th scope="col">Cuil</th>
-                        <th scope="col">IIBB</th>
                         <th scope="col">TEM</th>
+                        <th scope="col">IIBB</th>
                         <th scope="col">IVA</th>
                         <th scope="col">GAN</th>
                         <th scope="col">SUSS</th>
@@ -177,8 +177,8 @@ const Providers = () => {
                                 <td>{d.name}</td>                            
                                 <td>{d.businessname}</td>                            
                                 <td>{d.cuit}</td>                            
-                                <td>{d.iibb}</td>                            
                                 <td>{d.tem}</td>                            
+                                <td>{d.iibb}</td>                            
                                 <td>{d.iva}</td>                            
                                 <td>{d.gan}</td>                            
                                 <td>{d.suss}</td>                            
@@ -229,8 +229,8 @@ const Providers = () => {
                 <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='businessname' placeholder='cargar businessname' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
-                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
+                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
                 <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1' onChange={handleChange} ></input>
@@ -262,8 +262,8 @@ const Providers = () => {
                 <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.name}></input>
                 <input name='businessname' placeholder='cargar businessname' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.businessname}></input>
                 <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.cuit}></input>
-                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iibb}></input>
                 <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.tem }></input>
+                <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iibb}></input>
                 <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.iva}></input>
                 <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.gan}></input>
                 <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.suss}></input>
@@ -296,8 +296,8 @@ const Providers = () => {
                     <input name='name' placeholder='cargar name' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
                     <input name='businessnme' placeholder='cargar businessname' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.businessname}></input>
                     <input name='cuit' placeholder='cargar cuit' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.cuit}></input>
-                    <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
                     <input name='tem' placeholder='cargar tem' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.tem }></input>
+                    <input name='iibb' placeholder='cargar iibb' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iibb}></input>
                     <input name='iva' placeholder='cargar iva' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.iva}></input>
                     <input name='gan' placeholder='cargar gan' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.gan}></input>
                     <input name='suss' placeholder='cargar suss' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.suss}></input>
