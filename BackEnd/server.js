@@ -15,8 +15,8 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-const PORT_MYSQL = 3308  //casa
-//const PORT_MYSQL = 3306   //trabajo
+//const PORT_MYSQL = 3308  //casa
+const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
@@ -162,8 +162,8 @@ app.put('/updateprovider/:id',(req,res)=>{
             name=?,
             businessname=?,        
             cuit=?,        
-            iibb=?,        
             tem=?,        
+            iibb=?,        
             iva=?,        
             gan=?,        
             suss=?,        
@@ -177,8 +177,8 @@ app.put('/updateprovider/:id',(req,res)=>{
             req.body.name,
             req.body.businessname,
             req.body.cuit,
-            req.body.iibb,
             req.body.tem,
+            req.body.iibb,
             req.body.iva,
             req.body.gan,
             req.body.suss,
@@ -203,8 +203,8 @@ app.post('/providernew',(req, res)=>{
         req.body.name,
         req.body.businessname,
         req.body.cuit,
-        req.body.iibb,
         req.body.tem,
+        req.body.iibb,
         req.body.iva,
         req.body.gan,
         req.body.suss,
@@ -215,7 +215,7 @@ app.post('/providernew',(req, res)=>{
         req.body.dateupdate         
     ]
     db.query(
-        "insert into providers (`name`,`businessname`,`cuit`,`iibb`,`tem`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`factura`,`dateupdate`) values (?)", 
+        "insert into providers (`name`,`businessname`,`cuit`,`tem`,`iibb`,`iva`,`gan`,`suss`,`cellphone`,`address`,`cbu`,`factura`,`dateupdate`) values (?)", 
         [values],
         (err, result)=>{
             if(err) return res.json('error a dar el alta al los proveedores backend')

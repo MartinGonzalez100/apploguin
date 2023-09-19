@@ -62,7 +62,17 @@ const General = () => {
         setDatosEditar(prev=>({
             ...prev,
             [event.target.name]: [event.target.value],
-            desc_tem: [event.target.value]*filteredTem.tem/100
+            desc_tem: [event.target.value]*filteredTem.tem/100,
+            desc_iibb: [event.target.value]*filteredTem.iibb/100,
+            desc_iva: [event.target.value]*filteredTem.iva/100,
+            desc_gan: ([event.target.value]-67170.0)*filteredTem.gan/100,
+            desc_suss: ([event.target.value]/1.21)*filteredTem.suss/100,
+            importe_pagar: [event.target.value]
+                -([event.target.value]*filteredTem.tem/100)
+                -([event.target.value]*filteredTem.iibb/100)
+                -([event.target.value]*filteredTem.iva/100)
+                -(([event.target.value]-67170.0)*filteredTem.gan/100)
+                -(([event.target.value]/1.21)*filteredTem.suss/100)
         }))
         console.log('valor: '+event.target.value)
     }
@@ -99,7 +109,7 @@ const General = () => {
     const currencyFormat = (floatMoney)=>{
         if(floatMoney){
             return floatMoney.toLocaleString('es-AR', {
-                style: 'currency',
+                style: 'decimal',
                 currency: 'ARS', // Moneda argentina (pesos argentinos)
                 minimumFractionDigits: 2, // Número mínimo de decimales
               });
@@ -231,15 +241,15 @@ const General = () => {
                                 <td>{d.name}</td>                            
                                 <td>{d.n_factura}</td>                            
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
-                                <td>{d.importe_f/*currencyFormat(d.importe_f)*/}</td>                            
+                                <td>{/*d.importe_f*/currencyFormat(d.importe_f)}</td>                            
                                 {/*<td>{d.desc_tem}</td>                            
                                 <td>{d.desc_iibb}</td>                            
                                 <td>{d.desc_iva}</td>                            
                                 <td>{d.desc_gan}</td>                            
                                         <td>{d.desc_suss}</td>      */}                      
-                                <td>{ d.importe_pagar/* currencyFormat(d.importe_pagar) */}</td>                            
+                                <td>{ /*d.importe_pagar*/ currencyFormat(d.importe_pagar)}</td>                            
                                 <td>{d.a_fondo}</td>                            
-                                <td>{d.saldo_fondo/* currencyFormat(d.saldo_fondo) */}</td>                            
+                                <td>{/*d.saldo_fondo/**/  currencyFormat(d.saldo_fondo) }</td>                            
                                                             
                             </tr>
                         )
@@ -268,7 +278,7 @@ const General = () => {
                     <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
                     <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
                     <input  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
-                    <input  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/* currencyFormat(datosEditar.saldo_fondo) */}></input> 
+                    <input  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/*  currencyFormat(datosEditar.saldo_fondo)*/}></input> 
                 </div>
                 
             </div>
@@ -301,7 +311,7 @@ const General = () => {
                     <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
                     <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
                     <input disabled name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.a_fondo}></input>
-                    <input disabled name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.saldo_fondo/* currencyFormat(datosEditar.saldo_fondo) */}></input>
+                    <input disabled name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={/*datosEditar.saldo_fondo/**/ currencyFormat(datosEditar.saldo_fondo) }></input>
                 </div>
                 
             </div>
