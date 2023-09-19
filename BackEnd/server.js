@@ -15,8 +15,8 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-//const PORT_MYSQL = 3308  //casa
-const PORT_MYSQL = 3306   //trabajo
+const PORT_MYSQL = 3308  //casa
+//const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
