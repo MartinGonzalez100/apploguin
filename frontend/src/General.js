@@ -249,7 +249,7 @@ const General = () => {
                                 <td>{d.desc_iva}</td>                            
                                 <td>{d.desc_gan}</td>                            
                                         <td>{d.desc_suss}</td>      */}                      
-                                <td>{ /*d.importe_pagar*/ currencyFormat(d.importe_pagar)}</td>                            
+                                <td><strong>{ /*d.importe_pagar*/  currencyFormat(d.importe_pagar)}</strong></td>                            
                                 <td>{d.a_fondo}</td>                            
                                 <td>{/*d.saldo_fondo/**/  currencyFormat(d.saldo_fondo) }</td>                            
                                                             
