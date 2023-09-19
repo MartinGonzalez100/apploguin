@@ -10,6 +10,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 const General = () => {
     const [dataGeneral,setDataGeneral] = useState([])
     const [gralName,setGralName]= useState([])
+    const [dataProviders,setDataProviders]= useState([])
     const [filter, setFilter]=useState([])
     const [datosEditar, setDatosEditar] = useState([])
     const [actualizar, setActualizar] = useState(1)
@@ -50,6 +51,18 @@ const General = () => {
         setDatosEditar(prev=>({
             ...prev,
             [event.target.name]: [event.target.value]
+        }))
+        console.log('valor: '+event.target.value)
+    }
+    const handleChangeCalculated = (event)=>{
+        //editar en el cambio tiempo real
+        console.log("entro a calculado id: "+datosEditar.id_providers)
+        const filteredTem = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
+        console.log(filteredTem.tem)
+        setDatosEditar(prev=>({
+            ...prev,
+            [event.target.name]: [event.target.value],
+            desc_tem: [event.target.value]*filteredTem.tem/100
         }))
         console.log('valor: '+event.target.value)
     }
@@ -125,6 +138,16 @@ const General = () => {
             })
         }
         searchGeneralFilter()
+        const searchProviders = async ()=>{
+            await axios('http://localhost:8081/providers')
+                .then(res=>{
+                    console.log(res.data)
+                    const midata = res.data
+                    setDataProviders(midata)                    
+                })
+                .catch(err=>console.log('error providers desde fornt'))
+        }
+        searchProviders()
     },[actualizar])
   return (
     <>
@@ -237,13 +260,13 @@ const General = () => {
                     <input disabled name='name' placeholder='cargar numero factura' className='form-control rounded-3 mb-1' defaultValue={datosEditar.name}></input>
                     <input  name='n_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.n_factura}></input>
                     <input  name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={formatoFecha(datosEditar.f_factura)}></input>
-                    <input  name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_f/*currencyFormat(datosEditar.importe_f)*/}></input>
-                    <input  name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
-                    <input  name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
-                    <input  name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
-                    <input  name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
-                    <input  name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
-                    <input  name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
+                    <input  name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1' onChange={handleChangeCalculated} value={datosEditar.importe_f/*currencyFormat(datosEditar.importe_f)*/}></input>
+                    <input disabled name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
+                    <input disabled name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
+                    <input disabled name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
+                    <input disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
+                    <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
+                    <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
                     <input  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
                     <input  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/* currencyFormat(datosEditar.saldo_fondo) */}></input> 
                 </div>
