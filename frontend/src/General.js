@@ -188,6 +188,7 @@ const General = () => {
                         <th scope="col">N FACT</th>
                         <th scope="col">Fecha</th>                        
                         <th scope="col">Importe</th>                        
+                        <th scope="col">Retenciones</th>                        
                         {/*<th scope="col">TEM</th>
                         <th scope="col">IIBB</th>
                         <th scope="col">IVA</th>
@@ -242,6 +243,7 @@ const General = () => {
                                 <td>{d.n_factura}</td>                            
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
                                 <td>{/*d.importe_f*/currencyFormat(d.importe_f)}</td>                            
+                                <td>{/*d.importe_f*/currencyFormat(d.desc_tem+d.desc_iibb+d.desc_iva+d.desc_gan+d.desc_suss)}</td>                            
                                 {/*<td>{d.desc_tem}</td>                            
                                 <td>{d.desc_iibb}</td>                            
                                 <td>{d.desc_iva}</td>                            
