@@ -82,7 +82,8 @@ app.get('/fondo',(req, res)=>{
     )
 })
 app.put('/fondofilter',(req, res)=>{
-    console.log('el fonso a filtrar es '+req.body.a_fondo)
+    console.log('el fonso a filtrar es ')
+    console.log(req.body)
      db.query(
         'select * from fondo where period = ? order by id desc',
         [req.body.a_fondo],

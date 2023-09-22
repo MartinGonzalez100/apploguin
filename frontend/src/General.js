@@ -83,9 +83,9 @@ const General = () => {
 
         await axios.put('http://localhost:8081/fondofilter', registro)
         .then(res=>{
+            console.log('datos de Fondo extraidos con exito')
             console.log(res.data)
            //setDataFondo(res.data)            
-            console.log('datos de Fondo extraidos')
             
         })
         .catch(err=>console.log('error en el axios front: '+err)) 
@@ -138,6 +138,7 @@ const General = () => {
 
             await axios('http://localhost:8081/viewgralname')
             .then(res=>{
+                console.log('sql viewgralname ')
                 console.log(res.data)
                 setGralName(res.data)
                 setFilter(res.data)
@@ -153,7 +154,7 @@ const General = () => {
 
             await axios('http://localhost:8081/general')
             .then(res=>{
-                console.log(res.data)
+                //console.log(res.data)
                 const midata = res.data
                 setDataGeneral(midata)
                 //setFilter(midata)
@@ -166,6 +167,7 @@ const General = () => {
         const searchProviders = async ()=>{
             await axios('http://localhost:8081/providers')
                 .then(res=>{
+                    console.log('sql providers')
                     console.log(res.data)
                     const midata = res.data
                     setDataProviders(midata)                    
