@@ -9,6 +9,8 @@ import Providers from './Providers'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Printer from './Printer';
 import General from './General';
+import Fondo from './Fondo';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path='/providers' element={<Providers />} />
         <Route path='/printer' element={<Printer />} />
         <Route path='/general' element={<General />} />
+        <Route path='/fondo' element={<Fondo />} />
       </Routes>
       
     </BrowserRouter>

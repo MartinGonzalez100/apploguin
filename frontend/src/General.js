@@ -9,6 +9,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 const General = () => {
     const [dataGeneral,setDataGeneral] = useState([])
+    const [dataFondo,setDataFondo] = useState([])
     const [gralName,setGralName]= useState([])
     const [dataProviders,setDataProviders]= useState([])
     const [filter, setFilter]=useState([])
@@ -75,6 +76,20 @@ const General = () => {
                 -(([event.target.value]/1.21)*filteredTem.suss/100)
         }))
         console.log('valor: '+event.target.value)
+    }
+    const searchFondo = async (registro)=>{
+        console.log('en searchFondo')
+        console.log(registro.a_fondo)
+
+        await axios.put('http://localhost:8081/fondofilter', registro)
+        .then(res=>{
+            console.log(res.data)
+           //setDataFondo(res.data)            
+            console.log('datos de Fondo extraidos')
+            
+        })
+        .catch(err=>console.log('error en el axios front: '+err)) 
+        
     }
     const handleSearch = (event)=>{
         console.log('antes del handle: '+event.target.value.toString())
@@ -218,7 +233,7 @@ const General = () => {
                                             onClick={()=>{
                                                 handleDatos(d)
                                                 //setDatosEditar(d)
-                                                //console.log(d)
+                                                searchFondo(d)
                                             }}
                                             className="btn btn-light "
                                             data-bs-toggle="modal" data-bs-target="#staticBackdropEditar">
@@ -286,7 +301,15 @@ const General = () => {
             </div>
             <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button onClick={()=>{handleEdit(datosEditar)}} type="button" className="btn btn-info" data-bs-dismiss="modal">Edit</button>
+                <button 
+                    onClick={()=>{
+                        handleEdit(datosEditar)
+                        console.log('actualizar datos del fondo')
+                    }} 
+                    type="button" className="btn btn-info" 
+                    data-bs-dismiss="modal">
+                        Edit
+                </button>
             </div>
             </div>
             </div>
