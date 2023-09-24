@@ -71,6 +71,29 @@ app.get('/',(req, res)=>{
     return res.json(networkInterfaces)
 })
 
+//trabajando con fondo
+app.get('/fondo',(req, res)=>{
+    db.query(
+        'select * from fondo order by id desc',
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    )
+})
+app.put('/fondofilter',(req, res)=>{
+    console.log('el fonso a filtrar es ')
+    console.log(req.body)
+     db.query(
+        'select * from fondo where period = ? order by id desc',
+        [req.body.a_fondo],
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    ) 
+})
+
 //trabajando con viewgralname
 app.get('/viewgralname',(req, res)=>{
     db.query(
