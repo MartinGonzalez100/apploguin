@@ -9,6 +9,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 const General = () => {
     const [dataGeneral,setDataGeneral] = useState([])
+    const [dataFondo,setDataFondo] = useState([])
     const [gralName,setGralName]= useState([])
     const [dataProviders,setDataProviders]= useState([])
     const [filter, setFilter]=useState([])
@@ -76,6 +77,20 @@ const General = () => {
         }))
         console.log('valor: '+event.target.value)
     }
+    const searchFondo = async (registro)=>{
+        console.log('en searchFondo')
+        console.log(registro.a_fondo)
+
+        await axios.put('http://localhost:8081/fondofilter', registro)
+        .then(res=>{
+            console.log('datos de Fondo extraidos con exito')
+            console.log(res.data)
+           //setDataFondo(res.data)            
+            
+        })
+        .catch(err=>console.log('error en el axios front: '+err)) 
+        
+    }
     const handleSearch = (event)=>{
         console.log('antes del handle: '+event.target.value.toString())
         if(event.target.value.toString().length > 1){
@@ -123,6 +138,7 @@ const General = () => {
 
             await axios('http://localhost:8081/viewgralname')
             .then(res=>{
+                console.log('sql viewgralname ')
                 console.log(res.data)
                 setGralName(res.data)
                 setFilter(res.data)
@@ -138,7 +154,7 @@ const General = () => {
 
             await axios('http://localhost:8081/general')
             .then(res=>{
-                console.log(res.data)
+                //console.log(res.data)
                 const midata = res.data
                 setDataGeneral(midata)
                 //setFilter(midata)
@@ -151,6 +167,7 @@ const General = () => {
         const searchProviders = async ()=>{
             await axios('http://localhost:8081/providers')
                 .then(res=>{
+                    console.log('sql providers')
                     console.log(res.data)
                     const midata = res.data
                     setDataProviders(midata)                    
@@ -218,7 +235,7 @@ const General = () => {
                                             onClick={()=>{
                                                 handleDatos(d)
                                                 //setDatosEditar(d)
-                                                //console.log(d)
+                                                searchFondo(d)
                                             }}
                                             className="btn btn-light "
                                             data-bs-toggle="modal" data-bs-target="#staticBackdropEditar">
@@ -249,7 +266,7 @@ const General = () => {
                                 <td>{d.desc_iva}</td>                            
                                 <td>{d.desc_gan}</td>                            
                                         <td>{d.desc_suss}</td>      */}                      
-                                <td>{ /*d.importe_pagar*/ currencyFormat(d.importe_pagar)}</td>                            
+                                <td><strong>{ /*d.importe_pagar*/  currencyFormat(d.importe_pagar)}</strong></td>                            
                                 <td>{d.a_fondo}</td>                            
                                 <td>{/*d.saldo_fondo/**/  currencyFormat(d.saldo_fondo) }</td>                            
                                                             
@@ -286,7 +303,15 @@ const General = () => {
             </div>
             <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button onClick={()=>{handleEdit(datosEditar)}} type="button" className="btn btn-info" data-bs-dismiss="modal">Edit</button>
+                <button 
+                    onClick={()=>{
+                        handleEdit(datosEditar)
+                        console.log('actualizar datos del fondo')
+                    }} 
+                    type="button" className="btn btn-info" 
+                    data-bs-dismiss="modal">
+                        Edit
+                </button>
             </div>
             </div>
             </div>
@@ -305,15 +330,15 @@ const General = () => {
                     <input disabled name='name' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
                     <input disabled name='n_factura' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.n_factura}></input>
                     <input disabled name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' defaultValue={formatoFecha(datosEditar.f_factura)}></input>
-                    <input disabled name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_f/* currencyFormat(datosEditar.importe_f) */}></input>
-                    <input disabled name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
-                    <input disabled name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
-                    <input disabled name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
-                    <input disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
-                    <input disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
-                    <input disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}></input>
-                    <input disabled name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.a_fondo}></input>
-                    <input disabled name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={/*datosEditar.saldo_fondo/**/ currencyFormat(datosEditar.saldo_fondo) }></input>
+                    <input disabled title='Importe Facturado' name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.importe_f)}></input>
+                    <input disabled title='TEM' name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.desc_tem) }></input>
+                    <input disabled title='IIBB' name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.desc_iibb) }></input>
+                    <input disabled title='IVA' name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1'  defaultValue={currencyFormat(datosEditar.desc_iva) }></input>
+                    <input disabled title='GANANCIA' name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.desc_gan) }></input>
+                    <input disabled title='SUSS' name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.desc_suss)}></input>
+                    <input disabled title='Importe a Pagar' name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1'  defaultValue={ currencyFormat(datosEditar.importe_pagar)}></input>
+                    <input disabled title='Periodo de Fondo' name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.a_fondo}></input>
+                    <input disabled title='Saldo del Fondo' name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1'  defaultValue={/*datosEditar.saldo_fondo/**/ currencyFormat(datosEditar.saldo_fondo) }></input>
                 </div>
                 
             </div>
