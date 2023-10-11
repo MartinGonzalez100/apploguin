@@ -85,8 +85,23 @@ app.put('/fondofilter',(req, res)=>{
     console.log('el fonso a filtrar es ')
     console.log(req.body)
      db.query(
-        'select * from fondo where period = ? order by id desc',
-        [req.body.a_fondo],
+        'select * from fondo where period = ? and type = ? order by id desc',
+        [req.body.a_fondo, req.body.type ],
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    ) 
+})
+//--trabajando con actualizacion de fondo
+app.put('/fondoupdateamounts/:id',(req, res)=>{
+    console.log('el fondo a updateamounts es ')
+    console.log(req.body)
+     db.query(
+        `update fondo set 
+            balance=? where id=${req.params.id}
+        `,
+        [req.body],
         (err, result)=>{
             if(err) return res.json('error en sql backend')
             return res.json(result)
@@ -107,12 +122,14 @@ app.get('/viewgralname',(req, res)=>{
 //trabajando con general
 app.put('/updategeneral/:id',(req, res)=>{
     console.log("llega al backend id: "+req.params.id
+        +" type: "+req.body.type
         +" name: "+req.body.name
         +" importe_f: "+req.body.importe_f
         +" importe?pagar: "+req.body.importe_pagar
         +" saldo: "+req.body.saldo_fondo)
     db.query(
         `update gasto_gral set
+            type=?,
             id_providers=?,
             n_factura=?,        
             f_factura=?,        
@@ -127,6 +144,7 @@ app.put('/updategeneral/:id',(req, res)=>{
             saldo_fondo=? where id=${req.params.id}        
         `,
         [
+            req.body.type,
             req.body.id_providers,
             req.body.n_factura,
             req.body.f_factura,
