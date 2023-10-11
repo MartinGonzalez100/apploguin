@@ -10,6 +10,10 @@ import { AiOutlineDelete } from "react-icons/ai";
 const General = () => {
     const [dataGeneral,setDataGeneral] = useState([])
     const [dataFondo,setDataFondo] = useState([])
+    const [updateBalance,setUpdateBalance] = useState({
+        initial_amount:1,
+        initial_balance:1
+    })
     const [gralName,setGralName]= useState([])
     const [dataProviders,setDataProviders]= useState([])
     const [filter, setFilter]=useState([])
@@ -60,6 +64,9 @@ const General = () => {
         console.log("entro a calculado id: "+datosEditar.id_providers)
         const filteredTem = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
         console.log(filteredTem.tem)
+        const updateBalanceEnd = updateBalance.initial_amount - event.target.value
+        console.log('updatebalance a sumar: '+ updateBalanceEnd)
+        console.log('balance actual: '+ updateBalance.initial_balance)
         if([event.target.value]>9999.99){
             setDatosEditar(prev=>({
                 ...prev,            
@@ -74,7 +81,8 @@ const General = () => {
                     -([event.target.value]*filteredTem.iibb/100)
                     -([event.target.value]*filteredTem.iva/100)
                     -(([event.target.value]-67170.0)*filteredTem.gan/100)
-                    -(([event.target.value]/1.21)*filteredTem.suss/100)
+                    -(([event.target.value]/1.21)*filteredTem.suss/100),
+                saldo_fondo: updateBalanceEnd+updateBalance.initial_balance
             }))
         }else{
             setDatosEditar(prev=>({
@@ -85,12 +93,16 @@ const General = () => {
                 desc_iva: 0.0,
                 desc_gan: 0.0,
                 desc_suss: 0.0,
-                importe_pagar: [event.target.value]
+                importe_pagar: [event.target.value],
+                saldo_fondo: updateBalanceEnd+updateBalance.initial_balance
                     
             }))
         }
         
         console.log('valor: '+event.target.value)
+    }
+    const updateBalancedb = (newBackground)=>{
+        console.log('updateBalancedb new background :'+ newBackground)
     }
     const searchFondo = async (registro)=>{
         console.log('en searchFondo')
@@ -100,7 +112,7 @@ const General = () => {
         .then(res=>{
             console.log('datos de Fondo extraidos con exito')
             console.log(res.data)
-           //setDataFondo(res.data)            
+            setDataFondo(res.data)            
             
         })
         .catch(err=>console.log('error en el axios front: '+err)) 
@@ -250,6 +262,7 @@ const General = () => {
                                             type='button'
                                             onClick={()=>{
                                                 handleDatos(d)
+                                                setUpdateBalance({initial_amount:d.importe_f, initial_balance:d.saldo_fondo})
                                                 //setDatosEditar(d)
                                                 searchFondo(d)
                                             }}
@@ -321,7 +334,7 @@ const General = () => {
                     <input title='Retencion SUSS' disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
                     <input title='Importe a Pagar, Retenciones Descontadas' disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}style={{ fontWeight: 'bold' }}></input>
                     <input title='Periodo de Fondo o Refuerzo'  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
-                    <input title='Saldo del Fondo'  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/*  currencyFormat(datosEditar.saldo_fondo)*/}></input> 
+                    <input disabled title='Saldo del Fondo'  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/*  currencyFormat(datosEditar.saldo_fondo)*/}></input> 
                     
                 </div>
                 
@@ -331,7 +344,8 @@ const General = () => {
                 <button 
                     onClick={()=>{
                         handleEdit(datosEditar)
-                        console.log('actualizar datos del fondo')
+                        updateBalancedb(datosEditar.saldo_fondo)
+                        //console.log('actualizar datos del fondo')
                     }} 
                     type="button" className="btn btn-info" 
                     data-bs-dismiss="modal">
