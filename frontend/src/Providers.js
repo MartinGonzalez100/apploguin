@@ -83,7 +83,7 @@ const Providers = () => {
             )
 
             //console.log('dentro del handle: '+event.target.value.toString())
-           // console.log('dentro del handle filter: ')
+           //console.log('dentro del handle filter: ')
             //console.log(data.filter(d=>d.name.toLowerCase().includes(event.target.value.toLowerCase())))
         }else{
             setFilter(data)
