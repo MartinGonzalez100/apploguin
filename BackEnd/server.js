@@ -76,7 +76,7 @@ app.get('/fondo',(req, res)=>{
     db.query(
         'select * from fondo order by id desc',
         (err, result)=>{
-            if(err) return res.json('error en sql backend')
+            if(err) return res.json('error en sql backend fondo')
             return res.json(result)
         }
     )
