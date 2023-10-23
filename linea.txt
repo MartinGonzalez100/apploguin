@@ -1,0 +1,6 @@
+20231022 
+	GENERAL-EDITAR
+	-traer sql fondo al inicio useffect., hacer.
+	-utilizar el balance real a la hora de calcular la actualizacion del fondo, hacer.
+	-trabajar para guardar el fondo calculado. hacer.
+	-chequeos, hacer.
