@@ -15,8 +15,8 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-const PORT_MYSQL = 3308  //casa
-//const PORT_MYSQL = 3306   //trabajo
+//const PORT_MYSQL = 3308  //casa
+const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
@@ -63,11 +63,17 @@ app.get('/',(req, res)=>{
    /*db.query(
         'select * from users',
         (err, result)=>{
-            if(err) return res.json('error al hacer la consulta')
+            if(err) return res.json('error al hacer la consulta users')
             return res.json(result)
         }
     )*/
-    //console.log(networkInterfaces)
+    //try catch es para ver dodne estoy trabajando y el port de mysql a utilizar
+    try{
+        console.log(networkInterfaces.SLEVIN[1].address)
+    }catch{
+        PORT_MYSQL = 3308  //casa
+    }
+    //console.log(networkInterfaces.SLEVIN[1].address)
     return res.json(networkInterfaces)
 })
 

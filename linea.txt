@@ -1,6 +1,8 @@
 20231022 
 	GENERAL-EDITAR
-	-traer sql fondo al inicio useffect., hacer.
+	-traer sql fondo al click en editar gasto., hacer.
+		*searchFondo que carga setDataFondo, se realiza desde el boton editar
+	-testear el calculo de balance al modificar el importe de un gasto ya cargado
 	-utilizar el balance real a la hora de calcular la actualizacion del fondo, hacer.
 	-trabajar para guardar el fondo calculado. hacer.
 	-chequeos, hacer.
