@@ -67,6 +67,7 @@ const General = () => {
         const updateBalanceEnd = updateBalance.initial_amount - event.target.value
         console.log('updatebalance a sumar: '+ updateBalanceEnd)
         console.log('balance actual: '+ updateBalance.initial_balance)
+        console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
         if([event.target.value]>9999.99){
             setDatosEditar(prev=>({
                 ...prev,            

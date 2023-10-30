@@ -3,6 +3,8 @@
 	-traer sql fondo al click en editar gasto., hacer.
 		*searchFondo que carga setDataFondo, se realiza desde el boton editar
 	-testear el calculo de balance al modificar el importe de un gasto ya cargado
+		*el calculo se realiza correctamente
 	-utilizar el balance real a la hora de calcular la actualizacion del fondo, hacer.
 	-trabajar para guardar el fondo calculado. hacer.
 	-chequeos, hacer.
+	-borrar comentarios del calculo de balance, esto era para testeo
