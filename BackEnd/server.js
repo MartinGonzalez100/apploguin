@@ -15,16 +15,13 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-//const PORT_MYSQL = 3308  //casa
-const PORT_MYSQL = 3306   //trabajo
+const PORT_MYSQL = 3308  //casa
+//const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
 
 var networkInterfaces = os.networkInterfaces();
-
-
-
 
 const app = express()
 
@@ -60,20 +57,8 @@ const db = mysql.createConnection({
 })
 
 app.get('/',(req, res)=>{
-   /*db.query(
-        'select * from users',
-        (err, result)=>{
-            if(err) return res.json('error al hacer la consulta users')
-            return res.json(result)
-        }
-    )*/
-    //try catch es para ver dodne estoy trabajando y el port de mysql a utilizar
-    try{
-        console.log(networkInterfaces.SLEVIN[1].address)
-    }catch{
-        PORT_MYSQL = 3308  //casa
-    }
-    //console.log(networkInterfaces.SLEVIN[1].address)
+  
+    
     return res.json(networkInterfaces)
 })
 
@@ -101,18 +86,20 @@ app.put('/fondofilter',(req, res)=>{
 })
 //--trabajando con actualizacion de fondo
 app.put('/fondoupdateamounts/:id',(req, res)=>{
+    console.log('el fondo a period es ')
+    console.log(req.params.id)
     console.log('el fondo a updateamounts es ')
-    console.log(req.body)
-     db.query(
+    console.log(req.body.valor)
+     /*db.query(
         `update fondo set 
-            balance=? where id=${req.params.id}
+            balance=? where period=${req.params.id}
         `,
         [req.body],
         (err, result)=>{
             if(err) return res.json('error en sql backend')
             return res.json(result)
         }
-    ) 
+    ) */
 })
 
 //trabajando con viewgralname
