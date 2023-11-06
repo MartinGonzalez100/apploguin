@@ -90,16 +90,16 @@ app.put('/fondoupdateamounts/:id',(req, res)=>{
     console.log(req.params.id)
     console.log('el fondo a updateamounts es ')
     console.log(req.body.valor)
-     /*db.query(
+     db.query(
         `update fondo set 
             balance=? where period=${req.params.id}
         `,
-        [req.body],
+        [req.body.valor],
         (err, result)=>{
-            if(err) return res.json('error en sql backend')
+            if(err) return res.json('error en sql backend fondoupdateamounts')
             return res.json(result)
         }
-    ) */
+    )
 })
 
 //trabajando con viewgralname

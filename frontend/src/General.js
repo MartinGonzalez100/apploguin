@@ -12,7 +12,8 @@ const General = () => {
     const [dataFondo,setDataFondo] = useState([])
     const [updateBalance,setUpdateBalance] = useState({
         initial_amount:1,
-        initial_balance:1
+        initial_balance:1,
+        new_balance:1
     })
     const [gralName,setGralName]= useState([])
     const [dataProviders,setDataProviders]= useState([])
@@ -61,21 +62,21 @@ const General = () => {
     }
     const handleChangeCalculated = (event)=>{
         //editar en el cambio tiempo real
-        console.log("entro a calculado id: "+datosEditar.id_providers)
+        //console.log("entro a calculado id: "+datosEditar.id_providers)
         const filteredTem = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
-        console.log(filteredTem.tem)
+        //console.log(filteredTem.tem)
+        //console.log("datos del event.target.value :"+event.target.value)
+        //console.log("datos del updatebalance.initial_amount :"+updateBalance.initial_amount)
         const updateBalanceEnd = updateBalance.initial_amount - event.target.value
         console.log('updatebalance a sumar: '+ updateBalanceEnd)
         console.log('balance actual: '+ updateBalance.initial_balance)
         console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
-        axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.initial_balance+updateBalanceEnd)})
-        .then(res=>{
-            console.log("registro actualizado en front")
-            console.log(res)
+        setUpdateBalance({
+            initial_amount:updateBalance.initial_amount,
+            initial_balance:updateBalance.initial_balance,
+            new_balance:(updateBalance.initial_balance+updateBalanceEnd)
         })
-        .catch(err=>{
-            console.log("error al intentar actualizar balance en fondo front end")
-        })
+        
         if([event.target.value]>9999.99){
             setDatosEditar(prev=>({
                 ...prev,            
@@ -112,6 +113,15 @@ const General = () => {
     }
     const updateBalancedb = (newBackground)=>{
         console.log('updateBalancedb new background :'+ newBackground)
+        axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.new_balance)})
+        .then(res=>{
+            console.log("fondo actualizado en front")
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log("error al intentar actualizar balance en fondo front end")
+        })
+        setActualizar(actualizar*(-1))
     }
     const searchFondo = async (registro)=>{
         console.log('en searchFondo')
@@ -271,7 +281,7 @@ const General = () => {
                                             type='button'
                                             onClick={()=>{
                                                 handleDatos(d)
-                                                setUpdateBalance({initial_amount:d.importe_f, initial_balance:d.saldo_fondo})
+                                                setUpdateBalance({initial_amount:d.importe_f, initial_balance:d.saldo_fondo, new_balance:d.saldo_fondo})
                                                 //setDatosEditar(d)
                                                 searchFondo(d)
                                             }}
