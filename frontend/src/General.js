@@ -68,6 +68,14 @@ const General = () => {
         console.log('updatebalance a sumar: '+ updateBalanceEnd)
         console.log('balance actual: '+ updateBalance.initial_balance)
         console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
+        axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.initial_balance+updateBalanceEnd)})
+        .then(res=>{
+            console.log("registro actualizado en front")
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log("error al intentar actualizar balance en fondo front end")
+        })
         if([event.target.value]>9999.99){
             setDatosEditar(prev=>({
                 ...prev,            
