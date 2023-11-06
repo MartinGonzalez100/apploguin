@@ -8,6 +8,13 @@
 		*solucion de error, funciona correctamente
 	-utilizar el balance real a la hora de calcular la actualizacion del fondo, hacer.
 		*el periodo y el fondo llega al backend
+		*se reliza la actualizacion en forma correcta desde editar gasto general
 	-trabajar para guardar el fondo calculado. hacer.
+		*listo
 	-chequeos, hacer.
+		*listo
+	-borrar un gasto
+		*probar borrar gastos
+		*porbar actualizacion de fondos
+	-actualizar fondo al borrar un gasto
 	-borrar comentarios del calculo de balance, esto era para testeo
