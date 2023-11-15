@@ -18,3 +18,13 @@
 		*porbar actualizacion de fondos
 	-actualizar fondo al borrar un gasto
 	-borrar comentarios del calculo de balance, esto era para testeo
+	-crear vista pcsurvey, view, add, update, delete, change service, change people
+		*view pcsurvey
+		*create table services
+		*create table people
+		*update pcsurvey
+		*add pcsurvey
+		*delete pcsurvey
+		*change service
+		*change people
+		*deploy
