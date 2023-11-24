@@ -6,6 +6,7 @@ const mysql = require('mysql')
 
 /*cambiando type : module en package.json*/
 
+
 import express from 'express'
 import cors from 'cors'
 import mysql from 'mysql' 
@@ -15,8 +16,12 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-//const PORT_MYSQL = 3308  //casa
-const PORT_MYSQL = 3306   //trabajo
+import {config} from 'dotenv'
+config()
+console.log(process.env.VARIABLE_ENTORNO)
+
+
+const PORT_MYSQL = process.env.PORT_MYSQL_C_T   //PUERTOS ACTIVOS TRA O CA
 
 //ver ip de pc servidor
 import os from 'os'
@@ -51,8 +56,7 @@ const db = mysql.createConnection({
     user: 'root',
     password: "",
     database: 'signup',
-    port:`${PORT_MYSQL}`//casa
-    //port:'3306'//trabajo
+    port:`${PORT_MYSQL}`
 
 })
 
