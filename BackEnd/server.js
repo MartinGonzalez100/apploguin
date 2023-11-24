@@ -15,8 +15,8 @@ import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-const PORT_MYSQL = 3308  //casa
-//const PORT_MYSQL = 3306   //trabajo
+//const PORT_MYSQL = 3308  //casa
+const PORT_MYSQL = 3306   //trabajo
 
 //ver ip de pc servidor
 import os from 'os'
@@ -84,22 +84,33 @@ app.put('/fondofilter',(req, res)=>{
         }
     ) 
 })
-//--trabajando con actualizacion de fondo
+//actualiza fondo de funcionamiento
 app.put('/fondoupdateamounts/:id',(req, res)=>{
     console.log('el fondo a period es ')
     console.log(req.params.id)
     console.log('el fondo a updateamounts es ')
     console.log(req.body.valor)
-     /*db.query(
+     db.query(
         `update fondo set 
             balance=? where period=${req.params.id}
         `,
-        [req.body],
+        [req.body.valor],
         (err, result)=>{
-            if(err) return res.json('error en sql backend')
+            if(err) return res.json('error en sql backend fondoupdateamounts')
             return res.json(result)
         }
-    ) */
+    )
+})
+//--trabajando con borrado de pagos
+app.delete('/deletepay/:id',(req,res)=>{
+    console.log('llega al backend id: '+req.params.id)
+    db.query(
+        `delete gasto_gral where id = ${req.params.id}`,
+        (err, result)=>{
+            if(err) return res.json('error en backend al borrar gasto_gral')
+            return res.json(result)
+        }
+    )
 })
 
 //trabajando con viewgralname

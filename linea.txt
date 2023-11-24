@@ -4,8 +4,17 @@
 		*searchFondo que carga setDataFondo, se realiza desde el boton editar
 	-testear el calculo de balance al modificar el importe de un gasto ya cargado
 		*el calculo se realiza correctamente
+		*ERROR al actualizar concecutivamente sale un error
+		*solucion de error, funciona correctamente
 	-utilizar el balance real a la hora de calcular la actualizacion del fondo, hacer.
 		*el periodo y el fondo llega al backend
+		*se reliza la actualizacion en forma correcta desde editar gasto general
 	-trabajar para guardar el fondo calculado. hacer.
+		*listo
 	-chequeos, hacer.
+		*listo
+	-borrar un gasto
+		*probar borrar gastos
+		*porbar actualizacion de fondos
+	-actualizar fondo al borrar un gasto
 	-borrar comentarios del calculo de balance, esto era para testeo

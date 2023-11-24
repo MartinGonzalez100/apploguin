@@ -12,7 +12,9 @@ const General = () => {
     const [dataFondo,setDataFondo] = useState([])
     const [updateBalance,setUpdateBalance] = useState({
         initial_amount:1,
-        initial_balance:1
+        initial_balance:1,
+        new_balance:1,
+        a_fondo:'000000'
     })
     const [gralName,setGralName]= useState([])
     const [dataProviders,setDataProviders]= useState([])
@@ -51,31 +53,56 @@ const General = () => {
         .catch(err=>console.log(err))
 
     }
+    const handleDeletePay = (registro)=>{
+        console.log("registro a eliminar: "+registro.name)
+        
+        axios.delete(`http://localhost:8081/deletepay/${registro.id}`)
+        .then(res=>{
+            //se actualiza fondo
+            console.log("nuevo fondo: "+updateBalance.new_balance)
+            updateBalancedb(1)
+
+            console.log('registro actualizado en front')
+            console.log(res)
+            //actualiza pagina
+            setActualizar(actualizar*(-1))
+        })
+        .catch(err=>console.log(err))
+
+    }
     const handleChange = (event)=>{
+        if(event.target.name === "a_fondo" & event.target.value != datosEditar.a_fondo ){
+           //console.log("se cambio a fondo: "+event.target.value)
+           setUpdateBalance(preBalance=>({
+            ...preBalance,
+            [event.target.name]: datosEditar.a_fondo
+           }))
+        }
         //editar en el cambio tiempo real
         setDatosEditar(prev=>({
             ...prev,
             [event.target.name]: [event.target.value]
         }))
-        console.log('handlechange-> name: '+event.target.name+', valor: '+event.target.value)
+        //console.log('handlechange-> name: '+event.target.name+', valor: '+event.target.value)
     }
+    
     const handleChangeCalculated = (event)=>{
         //editar en el cambio tiempo real
-        console.log("entro a calculado id: "+datosEditar.id_providers)
+        //console.log("entro a calculado id: "+datosEditar.id_providers)
         const filteredTem = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
-        console.log(filteredTem.tem)
+        //console.log(filteredTem.tem)
+        //console.log("datos del event.target.value :"+event.target.value)
+        //console.log("datos del updatebalance.initial_amount :"+updateBalance.initial_amount)
         const updateBalanceEnd = updateBalance.initial_amount - event.target.value
         console.log('updatebalance a sumar: '+ updateBalanceEnd)
         console.log('balance actual: '+ updateBalance.initial_balance)
         console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
-        axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.initial_balance+updateBalanceEnd)})
-        .then(res=>{
-            console.log("registro actualizado en front")
-            console.log(res)
+        setUpdateBalance({
+            initial_amount:updateBalance.initial_amount,
+            initial_balance:updateBalance.initial_balance,
+            new_balance:(updateBalance.initial_balance+updateBalanceEnd)
         })
-        .catch(err=>{
-            console.log("error al intentar actualizar balance en fondo front end")
-        })
+        
         if([event.target.value]>9999.99){
             setDatosEditar(prev=>({
                 ...prev,            
@@ -112,6 +139,15 @@ const General = () => {
     }
     const updateBalancedb = (newBackground)=>{
         console.log('updateBalancedb new background :'+ newBackground)
+        axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.new_balance)})
+        .then(res=>{
+            console.log("fondo actualizado en front")
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log("error al intentar actualizar balance en fondo front end")
+        })
+        setActualizar(actualizar*(-1))
     }
     const searchFondo = async (registro)=>{
         console.log('en searchFondo')
@@ -271,7 +307,7 @@ const General = () => {
                                             type='button'
                                             onClick={()=>{
                                                 handleDatos(d)
-                                                setUpdateBalance({initial_amount:d.importe_f, initial_balance:d.saldo_fondo})
+                                                setUpdateBalance({initial_amount:d.importe_f, initial_balance:d.saldo_fondo, new_balance:d.saldo_fondo})
                                                 //setDatosEditar(d)
                                                 searchFondo(d)
                                             }}
@@ -283,6 +319,10 @@ const General = () => {
                                             type='button'
                                             onClick={()=>{
                                                 handleDatos(d)
+                                                setUpdateBalance(preUpdateBalance=>({
+                                                    ...preUpdateBalance,
+                                                    new_balance: datosEditar.saldo_fondo + datosEditar.importe_f
+                                                }))
                                                 //setDatosEditar(d)
                                                 //console.log(d)
                                             }}
@@ -315,6 +355,32 @@ const General = () => {
                 </tbody>    
             </table>
         </div>
+      {/*modal para eliminar datos */}
+      <div className="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="staticBackdropLabel">Formulario de Eliminacion</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <h3>Datos del Registro a ELIMINAR!!!!</h3>
+                <div className="d-flex flex-column mb-3">
+                   
+                    <input disabled name='name' title='Nombre' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
+                    <input disabled name='n_factura' title='Numero de Factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.n_factura}></input>
+                    <input disabled name='importe_f' title='Importe de Factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.importe_f}></input>
+                    
+                </div>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onClick={()=>{handleDeletePay(datosEditar)}} type="button" className="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+            </div>
+        </div>
+        </div>  
       {/*modal para editar datos */}
       <div className="modal fade" id="staticBackdropEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -328,7 +394,7 @@ const General = () => {
                     {/* <input name='type' title='Fondo o Refuerzo' placeholder='cargar numero factura' className='form-control rounded-3 mb-1' value={datosEditar.type}>
                         
                     </input> */}
-                    <select id="opciones" name='type' title='Fondo o Refuerzo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.type}>
+                    <select disabled id="opciones" name='type' title='Fondo o Refuerzo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.type}>
                         <option value='FF'>FF</option>
                         <option value='RF'>RF</option>                            
                     </select>
@@ -342,7 +408,14 @@ const General = () => {
                     <input title='Retencion GANANCIAS' disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
                     <input title='Retencion SUSS' disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
                     <input title='Importe a Pagar, Retenciones Descontadas' disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}style={{ fontWeight: 'bold' }}></input>
-                    <input title='Periodo de Fondo o Refuerzo'  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
+                    {/* <input title='Periodo de Fondo o Refuerzo'  name='a_fondo' placeholder='cargar mes de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}></input>
+                     */}
+                    <select  id="opcionesFondo" name='a_fondo' title='a fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}>
+                        <option value='202310'>202310</option>
+                        <option value='202309'>202309</option>
+                        <option value='202308'>202308</option>                            
+                        <option value='202307'>202307</option>                            
+                    </select> 
                     <input disabled title='Saldo del Fondo'  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/*  currencyFormat(datosEditar.saldo_fondo)*/}></input> 
                     
                 </div>
