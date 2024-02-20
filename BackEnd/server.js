@@ -19,6 +19,7 @@ import bodyParser from 'body-parser'
 import {config} from 'dotenv'
 config()
 console.log(process.env.VARIABLE_ENTORNO)
+console.log(process.env.PORT_MYSQL_C_T)
 
 
 const PORT_MYSQL = process.env.PORT_MYSQL_C_T   //PUERTOS ACTIVOS TRA O CA
@@ -62,7 +63,7 @@ const db = mysql.createConnection({
 
 app.get('/',(req, res)=>{
   
-    
+    console.log(networkInterfaces)
     return res.json(networkInterfaces)
 })
 
