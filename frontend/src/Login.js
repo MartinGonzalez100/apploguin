@@ -47,7 +47,8 @@ const Login = () => {
     useEffect(()=>{
         axios.get('http://localhost:8081/')
         .then(res=> {
-            try
+            console.log(res.data['Ethernet'][1]['address'])
+            /*try
             {                
                 console.log(res.data['Wi-Fi'][3].address)//casa
                 console.log("casa")
@@ -55,7 +56,7 @@ const Login = () => {
                 console.log(res.data.SLEVIN[1].address)//trabajo
                 console.log("trabajo")
 
-            }
+            }*/
             //console.log(res)
         })
         .catch(err=>console.log(err))
