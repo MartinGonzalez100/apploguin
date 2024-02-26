@@ -137,6 +137,65 @@ const General = () => {
         
         console.log('valor: '+event.target.value)
     }
+    const handleChangeCalculatedAlta = (event)=>{
+        //editar en el cambio tiempo real
+        //console.log("entro a calculado id: "+datosEditar.id_providers)
+        
+        //--
+        //const filteredTem = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
+        
+        //console.log(filteredTem.tem)
+        //console.log("datos del event.target.value :"+event.target.value)
+        //console.log("datos del updatebalance.initial_amount :"+updateBalance.initial_amount)
+        
+        //--
+        /* const updateBalanceEnd = updateBalance.initial_amount - event.target.value
+        console.log('updatebalance a sumar: '+ updateBalanceEnd)
+        console.log('balance actual: '+ updateBalance.initial_balance)
+        console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
+        setUpdateBalance({
+            initial_amount:updateBalance.initial_amount,
+            initial_balance:updateBalance.initial_balance,
+            new_balance:(updateBalance.initial_balance+updateBalanceEnd)
+        }) */
+        
+        //--
+        if([event.target.value]>9999.99){
+            console.log("importe mayores a 9999.99")
+            /* setDatosEditar(prev=>({
+                ...prev,            
+                [event.target.name]: [event.target.value],
+                desc_tem: [event.target.value]*filteredTem.tem/100,
+                desc_iibb: [event.target.value]*filteredTem.iibb/100,
+                desc_iva: [event.target.value]*filteredTem.iva/100,
+                desc_gan: ([event.target.value]-67170.0)*filteredTem.gan/100,
+                desc_suss: ([event.target.value]/1.21)*filteredTem.suss/100,
+                importe_pagar: [event.target.value]
+                    -([event.target.value]*filteredTem.tem/100)
+                    -([event.target.value]*filteredTem.iibb/100)
+                    -([event.target.value]*filteredTem.iva/100)
+                    -(([event.target.value]-67170.0)*filteredTem.gan/100)
+                    -(([event.target.value]/1.21)*filteredTem.suss/100),
+                saldo_fondo: updateBalanceEnd+updateBalance.initial_balance
+            })) */
+        }else{
+            console.log("importes inferiores a 9999.99")
+           /*  setDatosEditar(prev=>({
+                ...prev,            
+                [event.target.name]: [event.target.value],
+                desc_tem: 0.0,
+                desc_iibb: 0.0,
+                desc_iva: 0.0,
+                desc_gan: 0.0,
+                desc_suss: 0.0,
+                importe_pagar: [event.target.value],
+                saldo_fondo: updateBalanceEnd+updateBalance.initial_balance
+                    
+            })) */
+        }
+        
+        console.log('valor: '+event.target.value)
+    }
     const updateBalancedb = (newBackground)=>{
         console.log('updateBalancedb new background :'+ newBackground)
         axios.put(`http://localhost:8081/fondoupdateamounts/${datosEditar.a_fondo}`, {valor:(updateBalance.new_balance)})
@@ -355,6 +414,63 @@ const General = () => {
                 </tbody>    
             </table>
         </div>
+      {/*modal para alta datos */}
+      <div className="modal fade" id="staticBackdropAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal-dialog">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h1 className="modal-title fs-5" id="staticBackdropLabel">Formulario de Alta</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                <div className="d-flex flex-column mb-3">  
+                    
+                    <input name='id_fondo' title='Numero de Libramiento' placeholder='cargar numero libramiento' className='form-control rounded-3 mb-1'></input>
+                    <select disabled id="opciones" name='type' title='Fondo o Refuerzo' className='form-control rounded-3 mb-1'>
+                        <option value='FF'>FF</option>
+                        <option value='RF'>RF</option>                            
+                    </select>
+                    <input name='name' title='Nombre' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'></input>
+                    <input title='Numero de Factura'  name='n_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' ></input>
+                    <input title='Fecha de Factura'  name='f_factura' placeholder='cargar fecha de factura' className='form-control rounded-3 mb-1' ></input>
+                    <input title='Importe de Factura'  name='importe_f' placeholder='cargar importe de factura' className='form-control rounded-3 mb-1' onChange={handleChangeCalculatedAlta} style={{ fontWeight: 'bold' }}></input>
+                    <input title='Retencion TEM' disabled name='desc_tem' placeholder='cargar retencion tem' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_tem/* currencyFormat(datosEditar.desc_tem) */}></input>
+                    <input title='Retencion IIBB' disabled name='desc_iibb' placeholder='cargar retencion iibb' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iibb/* currencyFormat(datosEditar.desc_iibb) */}></input>
+                    <input title='Retencion IVA' disabled name='desc_iva' placeholder='cargar retencion iva' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_iva/* currencyFormat(datosEditar.desc_iva) */}></input>
+                    <input title='Retencion GANANCIAS' disabled name='desc_gan' placeholder='cargar retencion ganacia' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_gan/* currencyFormat(datosEditar.desc_gan) */}></input>
+                    <input title='Retencion SUSS' disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
+                    <input title='Importe a Pagar, Retenciones Descontadas' disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}style={{ fontWeight: 'bold' }}></input>
+                    <select  id="opcionesFondo" name='a_fondo' title='a fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}>
+                        <option value='202310'>202402</option>
+                        <option value='202310'>202401</option>
+                        <option value='202310'>202312</option>
+                        <option value='202310'>202311</option>
+                        <option value='202310'>202310</option>
+                        <option value='202309'>202309</option>
+                        <option value='202308'>202308</option>                            
+                        <option value='202307'>202307</option>                            
+                    </select> 
+                    <input disabled title='Saldo del Fondo'  name='saldo_fondo' placeholder='cargar saldo de fondo' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.saldo_fondo/*  currencyFormat(datosEditar.saldo_fondo)*/}></input> 
+                    
+                </div>
+                
+            </div>
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button 
+                    onClick={()=>{
+                        handleEdit(datosEditar)
+                        updateBalancedb(datosEditar.saldo_fondo)
+                        //console.log('actualizar datos del fondo')
+                    }} 
+                    type="button" className="btn btn-info" 
+                    data-bs-dismiss="modal">
+                        Edit
+                </button>
+            </div>
+            </div>
+            </div>
+        </div>   
       {/*modal para eliminar datos */}
       <div className="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog">
@@ -447,6 +563,7 @@ const General = () => {
             </div>
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">                   
+                    <input disabled name='id_fondo' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.id_fondo}></input>
                     <input disabled name='type' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.type}></input>
                     <input disabled name='name' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.name}></input>
                     <input disabled name='n_factura' placeholder='cargar numero factura' className='form-control rounded-3 mb-1'  defaultValue={datosEditar.n_factura}></input>

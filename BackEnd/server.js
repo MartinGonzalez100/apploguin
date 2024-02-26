@@ -70,7 +70,7 @@ app.get('/',(req, res)=>{
 //trabajando con fondo
 app.get('/fondo',(req, res)=>{
     db.query(
-        'select * from fondo order by id desc',
+        'select * from fondo order by period desc, date',
         (err, result)=>{
             if(err) return res.json('error en sql backend fondo')
             return res.json(result)

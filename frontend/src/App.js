@@ -8,8 +8,8 @@ import Title from './Title'
 import Providers from './Providers'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Printer from './Printer';
-import General from './General';
-import Fondo from './Fondo';
+import General from './components/General';
+import Fondo from './components/Fondo';
 
 
 function App() {
