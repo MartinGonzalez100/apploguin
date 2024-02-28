@@ -103,6 +103,15 @@ const General = () => {
         }))
         console.log('handlechange-> name: '+event.target.name+', valor: '+event.target.value)
     }
+
+    //actualiza el numero de fondo en datosEditar
+    const handleChangeNumberFondo = (event)=>{
+        console.log(parseInt(event.target.value)+0)
+        setDatosEditar(prev=>({
+            ...prev,
+            id_fondo: [event.target.value]
+        }))
+    }
     //desde el nombre de provvedor nos actualiza su id en datosEditar()
     const handleChangeProviders = async (event)=>{
         
@@ -171,6 +180,8 @@ const General = () => {
         
         console.log('valor: '+event.target.value)
     }
+
+    //calculando los datos para el alta, actualiza datosEditar
     const handleChangeCalculatedAlta = (event)=>{
         //editar en el cambio tiempo real
         //console.log("entro a calculado handleChangeCalculatedAlta importe: "+event.target.value)
@@ -197,20 +208,28 @@ const General = () => {
         //--
         if([event.target.value]>9999.99){
             console.log("importe mayores a 9999.99")
+
+            //calculo de retenciones
+            const retTem=([event.target.value]*uneProvider.tem/100 < 0.0) ? 0 : [event.target.value]*uneProvider.tem/100
+            const retTIibb=([event.target.value]*uneProvider.iibb/100 < 0.0) ? 0 :[event.target.value]*uneProvider.iibb/100
+            const retIva=([event.target.value]*uneProvider.iva/100 < 0.0) ? 0 : [event.target.value]*uneProvider.iva/100
+            const retGan=(([event.target.value]-67170.0)*uneProvider.gan/100 < 0.0) ? 0 : ([event.target.value]-67170.0)*uneProvider.gan/100
+            const retSuss=((([event.target.value]/1.21)*uneProvider.suss/100) < 400.00) ? 0 : ([event.target.value]/1.21)*uneProvider.suss/100
+            
             setDatosEditar(prev=>({
                 ...prev,            
                 [event.target.name]: [event.target.value],
-                desc_tem: [event.target.value]*uneProvider.tem/100,
-                desc_iibb: [event.target.value]*uneProvider.iibb/100,
-                desc_iva: [event.target.value]*uneProvider.iva/100,
-                desc_gan: ([event.target.value]-67170.0)*uneProvider.gan/100,
-                desc_suss: ([event.target.value]/1.21)*uneProvider.suss/100,
+                desc_tem: retTem,
+                desc_iibb: retTIibb,
+                desc_iva: retIva,
+                desc_gan: retGan,
+                desc_suss: retSuss,
                 importe_pagar: [event.target.value]
-                    -([event.target.value]*uneProvider.tem/100)
-                    -([event.target.value]*uneProvider.iibb/100)
-                    -([event.target.value]*uneProvider.iva/100)
-                    -(([event.target.value]-67170.0)*uneProvider.gan/100)
-                    -(([event.target.value]/1.21)*uneProvider.suss/100),
+                    -retTem
+                    -retTIibb
+                    -retIva
+                    -retGan
+                    -retSuss,
                 saldo_fondo: 0 //updateBalanceEnd+updateBalance.initial_balance
             }))
         }else{
@@ -230,6 +249,7 @@ const General = () => {
         }
         
         //console.log('valor: '+event.target.value)
+        //AQUI ALTA EN DB
     }
     const updateBalancedb = (newBackground)=>{
         console.log('updateBalancedb new background :'+ newBackground)
@@ -300,8 +320,20 @@ const General = () => {
     }
 
     useEffect(()=>{
-        const searchViewGralName = async ()=>{
+        const searchFondo = async ()=>{
+            await axios('http://localhost:8081/fondo')
+            .then(res=>{
+                console.log('sql fondo')
+                console.log(res.data)
+                setDataFondo(res.data)
+            })
+            .catch(err=>{
+                console.log('error en frontend sql fondo')
+            })
+        }
+        searchFondo()
 
+        const searchViewGralName = async ()=>{
             await axios('http://localhost:8081/viewgralname')
             .then(res=>{
                 console.log('sql viewgralname ')
@@ -357,7 +389,7 @@ const General = () => {
                         <MdLibraryAdd className=''/>
                     </button>
                 </span>
-            </div>
+        </div>
             
             <table className="table table-dark table-striped table-hover">
                 <thead>
@@ -460,13 +492,19 @@ const General = () => {
             <div className="modal-body">
                 <div className="d-flex flex-column mb-3">  
                     
-                    <input name='id_fondo' title='Numero de Libramiento' onChange={handleChange} placeholder='cargar numero libramiento' className='form-control rounded-3 mb-1' type='number'></input>    
+                    {/* <input name='id_fondo' title='Numero de Libramiento' onChange={handleChange} placeholder='cargar numero libramiento' className='form-control rounded-3 mb-1' type='number'></input>    
+                     */}
+                    <select id="opcionesFondo" name='id_fondo' title='Seleccionar el numero de libramiento' className='form-control rounded-3 mb-1' onChange={handleChangeNumberFondo}>
+                        {dataFondo.map((d,i)=>(
+                            <option key={i} value={d.id}>{d.id}</option>                                                                      
+                        ))}                   
+                    </select> 
                     {/* <input name='nameProvider' title='Nombre de proveedor' placeholder='Nombre de Proveedor' className='form-control rounded-3 mb-1'></input> */}
-                        <select id="opcionesProveedor" name='nameProvider' title='Seleccionar el nombre del proveedor' className='form-control rounded-3 mb-1' onChange={handleChangeProviders}>
-                            {dataProviders.map((d,i)=>(
-                                <option key={i} value={d.name}>{d.name}</option>                                                                      
-                            ))}                   
-                        </select>
+                    <select id="opcionesProveedor" name='id_providers' title='Seleccionar el nombre del proveedor' className='form-control rounded-3 mb-1' onChange={handleChangeProviders}>
+                        {dataProviders.map((d,i)=>(
+                            <option key={i} value={d.name}>{d.name}</option>                                                                      
+                        ))}                   
+                    </select>
 
                     <input name='n_factura' title='Numero de Factura' onChange={handleChange} placeholder='cargar numero factura: numero-numero' className='form-control rounded-3 mb-1'></input>
                     
@@ -494,10 +532,11 @@ const General = () => {
                 
             </div>
             <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{setActualizar(actualizar*(-1))}}>Close</button>
                 <button 
                     onClick={()=>{
                         handleAlta(datosEditar)
+                        setActualizar(actualizar*(-1))
                         //updateBalancedb(datosEditar.saldo_fondo)
                         //console.log('actualizar datos del fondo')
                     }} 
