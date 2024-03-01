@@ -56,9 +56,13 @@ const General = () => {
     //alta de un gasto general, utilizando dataEditar
     const handleAlta = (registro)=>{
         
-        console.log('iniciando Alta en front: '+registro.idproviders)
+        console.log('iniciando Alta en front: '+registro.id_providers)
         console.log(registro)
-        
+        axios.post(`http://localhost:8081/gastogralnew`, registro)
+        .then(res=>{
+            console.log('res del post en el front', res.data)
+        })
+        .catch(err=>console.log(err))
         /* axios.put(`http://localhost:8081/addgeneral/${registro.id}`, registro)
         .then(res=>{
             console.log('registro de alta en front')
@@ -68,7 +72,7 @@ const General = () => {
 
         })
         .catch(err=>console.log(err)) */
-        console.log("trabajando!!!!!!")
+        console.log("trabajando alta de gasto_gral!!!!!!")
 
     }
     const handleDeletePay = (registro)=>{

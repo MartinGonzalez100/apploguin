@@ -63,11 +63,12 @@ const db = mysql.createConnection({
 
 app.get('/',(req, res)=>{
   
-    console.log(networkInterfaces)
+    //console.log(networkInterfaces)
     return res.json(networkInterfaces)
 })
 
-//trabajando con fondo
+
+//trabajando con fondo FONDO
 app.get('/fondo',(req, res)=>{
     db.query(
         'select * from fondo order by period desc, date',
@@ -106,6 +107,15 @@ app.put('/fondoupdateamounts/:id',(req, res)=>{
         }
     )
 })
+
+//gasto_gral  GASTO_GRAL
+//--nuevo pago
+app.post('/gastogralnew',(req, res)=>{
+    console.log(`en el back gastogralnew ${req.body.id_providers} y %d :`,req.body.id_fondo)
+    
+    return res.json({altaPago:'ok'})
+})
+
 //--trabajando con borrado de pagos
 app.delete('/deletepay/:id',(req,res)=>{
     console.log('llega al backend id: '+req.params.id)
@@ -118,16 +128,6 @@ app.delete('/deletepay/:id',(req,res)=>{
     )
 })
 
-//trabajando con viewgralname
-app.get('/viewgralname',(req, res)=>{
-    db.query(
-        'select * from viewgralname order by id desc',
-        (err, result)=>{
-            if(err) return res.json('error en sql backend')
-            return res.json(result)
-        }
-    )
-})
 //trabajando con general
 app.put('/updategeneral/:id',(req, res)=>{
     console.log("llega al backend id: "+req.params.id
@@ -185,6 +185,18 @@ app.get('/general',(req, res)=>{
     )
 })
 
+//viewgralname VIEWGRALNAME
+//trabajando con viewgralname
+app.get('/viewgralname',(req, res)=>{
+    db.query(
+        'select * from viewgralname order by id desc',
+        (err, result)=>{
+            if(err) return res.json('error en sql backend')
+            return res.json(result)
+        }
+    )
+})
+//providers PROVIDERS
 //trabajo con providers// trabajando
 app.get('/providers',(req, res)=>{
     db.query(
@@ -285,6 +297,7 @@ app.get('/providerscols',(req,res)=>{
 
 {/*aqui estalo copiado de printers, uniendo proyectos*/ }
 
+//printer PRINTER
 app.get('/printer', (req, res)=>{
     db.query(
         "select * from printer",
@@ -348,7 +361,7 @@ app.put('/updateprinter/:id',(req,res)=>{
 })
 */
 
-
+//users USERS
 //trabajo con pssw
 app.get('/view', (req, res)=>{
     const sql = "SELECT * FROM users"
