@@ -112,8 +112,35 @@ app.put('/fondoupdateamounts/:id',(req, res)=>{
 //--nuevo pago
 app.post('/gastogralnew',(req, res)=>{
     console.log(`en el back gastogralnew ${req.body.id_providers} y %d :`,req.body.id_fondo)
+    console.log(req.body)
     
-    return res.json({altaPago:'ok'})
+    const values = [
+        req.body.id_providers,
+        req.body.n_factura,
+        req.body.f_factura,
+        req.body.importe_f,
+        req.body.desc_tem,
+        req.body.desc_iibb,
+        req.body.desc_iva,
+        req.body.desc_gan,
+        req.body.desc_suss,
+        req.body.importe_pagar,
+        req.body.a_fondo,      
+        'SS',  
+        req.body.saldo_fondo,
+        req.body.id_fondo         
+    ]
+    db.query(
+        "insert into gasto_gral (`id_providers`,`n_factura`,`f_factura`,`importe_f`,`desc_tem`,`desc_iibb`,`desc_iva`,`desc_gan`,`desc_suss`,`importe_pagar`,`a_fondo`,`type`,`saldo_fondo`,`id_fondo`) values (?)", 
+        [values],
+        (err, result)=>{
+            if(err) return res.json('error a dar el alta al los gastos generales en backend')
+            return res.json(result)
+        }
+    )
+
+
+    //return res.json({altaPago:'ok'})
 })
 
 //--trabajando con borrado de pagos

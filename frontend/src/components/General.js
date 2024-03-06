@@ -21,6 +21,10 @@ const General = () => {
     const [filter, setFilter]=useState([])
     const [datosEditar, setDatosEditar] = useState([])
     const [actualizar, setActualizar] = useState(1)
+    const [saldoFondo, setSaldoFondo] = useState({
+        id_fondo:0,
+        saldo_fondo:0.0
+    })
 
     // Formatea la fecha en el formato deseado (día/mes/año)
     const optionsDates = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -58,6 +62,7 @@ const General = () => {
         
         console.log('iniciando Alta en front: '+registro.id_providers)
         console.log(registro)
+
         axios.post(`http://localhost:8081/gastogralnew`, registro)
         .then(res=>{
             console.log('res del post en el front', res.data)
@@ -110,7 +115,7 @@ const General = () => {
 
     //actualiza el numero de fondo en datosEditar
     const handleChangeNumberFondo = (event)=>{
-        console.log(parseInt(event.target.value)+0)
+        //console.log(parseInt(event.target.value)+0)
         setDatosEditar(prev=>({
             ...prev,
             id_fondo: [event.target.value]
@@ -323,6 +328,27 @@ const General = () => {
         return ""
     }
 
+    const calculoSaldoFondo = (idfondo,importePago)=>{
+        console.log(`el idfondo es ${idfondo} y el id_fondo es ${saldoFondo.id_fondo}`)
+        if(idfondo===saldoFondo.id_fondo){
+            setSaldoFondo(prev=>({
+                ...prev,
+                saldo_fondo: saldoFondo.saldo_fondo-importePago
+            }))}
+        else{
+            //const balanceTemp=dataFondo.find((f)=>f.id===idfondo).balance
+           /*  setSaldoFondo({
+                id_fondo:idfondo,
+                saldo_fondo: 10
+            }) */
+        } 
+            return saldoFondo.saldo_fondo
+            //const uneProvider = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
+        //console.log(dataFondo.find((f)=>f.id===idfondo).balance)
+       // return dataFondo.find((f)=>f.id===idfondo).balance
+    }
+    
+
     useEffect(()=>{
         const searchFondo = async ()=>{
             await axios('http://localhost:8081/fondo')
@@ -463,8 +489,7 @@ const General = () => {
                                 </td >                  
                                 <td>{d.id}</td>                            
                                 <td>{d.id_providers}</td>                            
-                                <td>{d.type}</td>                            
-                                                       
+                                <td>{d.type}</td>      
                                 <td>{d.name}</td>                            
                                 <td>{d.n_factura}</td>                            
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
@@ -474,10 +499,10 @@ const General = () => {
                                 <td>{d.desc_iibb}</td>                            
                                 <td>{d.desc_iva}</td>                            
                                 <td>{d.desc_gan}</td>                            
-                                        <td>{d.desc_suss}</td>      */}                      
+                                <td>{d.desc_suss}</td>*/}                      
                                 <td><strong>{ /*d.importe_pagar*/  currencyFormat(d.importe_pagar)}</strong></td>                            
                                 <td>{d.a_fondo}</td>                            
-                                <td>{/*d.saldo_fondo/**/  currencyFormat(d.saldo_fondo) }</td>                            
+                                <td>{calculoSaldoFondo(d.id_fondo, d.importe_pagar)} {/*d.saldo_fondo  currencyFormat(d.saldo_fondo)*/ }</td>                            
                                                             
                             </tr>
                         )
@@ -521,10 +546,10 @@ const General = () => {
                     <input title='Retencion SUSS' disabled name='desc_suss' placeholder='cargar renetcion suss' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.desc_suss/* currencyFormat(datosEditar.desc_suss) */}></input>
                     <input title='Importe a Pagar, Retenciones Descontadas' disabled name='importe_pagar' placeholder='cargar importe a pagar' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.importe_pagar/* currencyFormat(datosEditar.importe_pagar) */}style={{ fontWeight: 'bold' }}></input>
                     <select  id="opcionesFondo" name='a_fondo' title='periodo de fondo: añomes:202401' className='form-control rounded-3 mb-1' onChange={handleChange} value={datosEditar.a_fondo}>
-                        <option value='202310'>202402</option>
-                        <option value='202310'>202401</option>
-                        <option value='202310'>202312</option>
-                        <option value='202310'>202311</option>
+                        <option value='202402'>202402</option>
+                        <option value='202401'>202401</option>
+                        <option value='202312'>202312</option>
+                        <option value='202311'>202311</option>
                         <option value='202310'>202310</option>
                         <option value='202309'>202309</option>
                         <option value='202308'>202308</option>                            
