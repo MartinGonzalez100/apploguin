@@ -107,6 +107,22 @@ app.put('/fondoupdateamounts/:id',(req, res)=>{
         }
     )
 })
+//actualiza balance de fondo
+app.put('/fondoupdatebalance/:id',(req, res)=>{
+    console.log('el fondo a id es :', req.params.id)
+    console.log('el importe es :', req.body.valor)
+    
+     db.query(
+        `update fondo set 
+            balance=? where id=${req.params.id}
+        `,
+        [req.body.valor],
+        (err, result)=>{
+            if(err) return res.json('error en sql backend fondoupdatebalance')
+            return res.json(result)
+        }
+    )
+})
 
 //gasto_gral  GASTO_GRAL
 //--nuevo pago

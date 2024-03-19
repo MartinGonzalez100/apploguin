@@ -57,7 +57,7 @@ const General = () => {
         .catch(err=>console.log(err))
 
     }
-    //alta de un gasto general, utilizando dataEditar
+    //alta de un gasto general, utilizando dataEditar, actualizacion de balance en fondo
     const handleAlta = (registro)=>{
         
         console.log('iniciando Alta en front: '+registro.id_providers)
@@ -68,15 +68,7 @@ const General = () => {
             console.log('res del post en el front', res.data)
         })
         .catch(err=>console.log(err))
-        /* axios.put(`http://localhost:8081/addgeneral/${registro.id}`, registro)
-        .then(res=>{
-            console.log('registro de alta en front')
-            console.log(res)
-            
-            setActualizar(actualizar*(-1))
-
-        })
-        .catch(err=>console.log(err)) */
+       
         console.log("trabajando alta de gasto_gral!!!!!!")
 
     }
@@ -97,14 +89,16 @@ const General = () => {
         .catch(err=>console.log(err))
 
     }
+    //al cambiar campos del formulario ctualizo datosEditar y guardo el valor actual
     const handleChange = (event)=>{
+        //si el nombre del campo es a_fondo y se esta tratando de cambiar, no es igual al anterior a_fondo
         if(event.target.name === "a_fondo" & event.target.value !== datosEditar.a_fondo ){
-           //console.log("se cambio a fondo: "+event.target.value)
-           setUpdateBalance(preBalance=>({
+          setUpdateBalance(preBalance=>({
             ...preBalance,
             [event.target.name]: datosEditar.a_fondo
            }))
         }
+        //para cualquiero otro campo que no sea a_fondo
         //editar en el cambio tiempo real
         setDatosEditar(prev=>({
             ...prev,
@@ -112,7 +106,6 @@ const General = () => {
         }))
         console.log('handlechange-> name: '+event.target.name+', valor: '+event.target.value)
     }
-
     //actualiza el numero de fondo en datosEditar
     const handleChangeNumberFondo = (event)=>{
         //console.log(parseInt(event.target.value)+0)
@@ -136,8 +129,7 @@ const General = () => {
             id_providers: proveedorEspecifico[0].idproviders
         }))
         //console.log('handlechange-> name: '+datosEditar.id_providers+', valor: '+event.target.value)
-    }
-    
+    }    
     const handleChangeCalculated = (event)=>{
         //editar en el cambio tiempo real
         //console.log("entro a calculado id: "+datosEditar.id_providers)
@@ -189,7 +181,6 @@ const General = () => {
         
         console.log('valor: '+event.target.value)
     }
-
     //calculando los datos para el alta, actualiza datosEditar
     const handleChangeCalculatedAlta = (event)=>{
         //editar en el cambio tiempo real
@@ -300,6 +291,7 @@ const General = () => {
             setFilter(gralName)
         }
     }
+    //actualiza datos a editar, son datos de los formularios
     const handleDatos = (data)=>{
         setDatosEditar( prev=>({
             ...prev,
@@ -316,6 +308,7 @@ const General = () => {
         }
         return ""
     }
+    //da formato al tipo moneda
     const currencyFormat = (floatMoney)=>{
         if(floatMoney){
             return floatMoney.toLocaleString('es-AR', {
@@ -328,27 +321,7 @@ const General = () => {
         return ""
     }
 
-    const calculoSaldoFondo = (idfondo,importePago)=>{
-        console.log(`el idfondo es ${idfondo} y el id_fondo es ${saldoFondo.id_fondo}`)
-        if(idfondo===saldoFondo.id_fondo){
-            setSaldoFondo(prev=>({
-                ...prev,
-                saldo_fondo: saldoFondo.saldo_fondo-importePago
-            }))}
-        else{
-            //const balanceTemp=dataFondo.find((f)=>f.id===idfondo).balance
-           /*  setSaldoFondo({
-                id_fondo:idfondo,
-                saldo_fondo: 10
-            }) */
-        } 
-            return saldoFondo.saldo_fondo
-            //const uneProvider = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
-        //console.log(dataFondo.find((f)=>f.id===idfondo).balance)
-       // return dataFondo.find((f)=>f.id===idfondo).balance
-    }
-    
-
+   
     useEffect(()=>{
         const searchFondo = async ()=>{
             await axios('http://localhost:8081/fondo')
@@ -366,7 +339,7 @@ const General = () => {
         const searchViewGralName = async ()=>{
             await axios('http://localhost:8081/viewgralname')
             .then(res=>{
-                console.log('sql viewgralname ')
+                console.log('sql viewgralname y Filter')
                 console.log(res.data)
                 setGralName(res.data)
                 setFilter(res.data)
@@ -382,8 +355,9 @@ const General = () => {
 
             await axios('http://localhost:8081/general')
             .then(res=>{
-                //console.log(res.data)
+                console.log('sql dataGeneral')
                 const midata = res.data
+                console.log(res.data)
                 setDataGeneral(midata)
                 //setFilter(midata)
             })
@@ -495,14 +469,10 @@ const General = () => {
                                 <td>{new Date(d.f_factura).toLocaleDateString('es-ES', optionsDates)}</td>                            
                                 <td>{/*d.importe_f*/currencyFormat(d.importe_f)}</td>                            
                                 <td>{/*d.importe_f*/currencyFormat(d.desc_tem+d.desc_iibb+d.desc_iva+d.desc_gan+d.desc_suss)}</td>                            
-                                {/*<td>{d.desc_tem}</td>                            
-                                <td>{d.desc_iibb}</td>                            
-                                <td>{d.desc_iva}</td>                            
-                                <td>{d.desc_gan}</td>                            
-                                <td>{d.desc_suss}</td>*/}                      
+                                                  
                                 <td><strong>{ /*d.importe_pagar*/  currencyFormat(d.importe_pagar)}</strong></td>                            
                                 <td>{d.a_fondo}</td>                            
-                                <td>{calculoSaldoFondo(d.id_fondo, d.importe_pagar)} {/*d.saldo_fondo  currencyFormat(d.saldo_fondo)*/ }</td>                            
+                                <td>{dataFondo.find((f)=>f.id===d.id_fondo).balance} {/*d.saldo_fondo  currencyFormat(d.saldo_fondo)*/ }</td>                            
                                                             
                             </tr>
                         )
