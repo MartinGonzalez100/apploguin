@@ -109,10 +109,10 @@ app.put('/fondoupdateamounts/:id',(req, res)=>{
 })
 //actualiza balance de fondo
 app.put('/fondoupdatebalance/:id',(req, res)=>{
-    console.log('el fondo a id es :', req.params.id)
+    console.log('backend: el fondo a id es :', req.params.id)
     console.log('el importe es :', req.body.valor)
     
-     db.query(
+    db.query(
         `update fondo set 
             balance=? where id=${req.params.id}
         `,
@@ -127,7 +127,7 @@ app.put('/fondoupdatebalance/:id',(req, res)=>{
 //gasto_gral  GASTO_GRAL
 //--nuevo pago
 app.post('/gastogralnew',(req, res)=>{
-    console.log(`en el back gastogralnew ${req.body.id_providers} y %d :`,req.body.id_fondo)
+    console.log(`en backend: gastogralnew ${req.body.id_providers} y %d :`,req.body.id_fondo)
     console.log(req.body)
     
     const values = [
@@ -154,7 +154,6 @@ app.post('/gastogralnew',(req, res)=>{
             return res.json(result)
         }
     )
-
 
     //return res.json({altaPago:'ok'})
 })

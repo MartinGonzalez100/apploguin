@@ -60,18 +60,28 @@ const General = () => {
     //alta de un gasto general, utilizando dataEditar, actualizacion de balance en fondo
     const handleAlta = (registro)=>{
         
-        console.log('iniciando Alta en front: '+registro.id_providers)
+        console.log('iniciando Alta en front, name: '+registro.id_providers+' importe_f: '+registro.importe_f)
+        console.log('actualizacion de gasto_gral y Fondo.balance')
+        console.log('los registros en datosEditar don:')
+
         console.log(registro)
 
-        axios.post(`http://localhost:8081/gastogralnew`, registro)
+       axios.post(`http://localhost:8081/gastogralnew`, registro)
         .then(res=>{
             console.log('res del post en el front', res.data)
         })
-        .catch(err=>console.log(err))
-       
+        .catch(err=>console.log(err))       
         console.log("trabajando alta de gasto_gral!!!!!!")
 
+        axios.put(`http://localhost:8081/fondoupdatebalance/${registro.id_fondo}`, {valor:(registro.saldo_fondo)})
+        .then(res=>{
+            console.log('fondo actualizado en front')
+            console.log(res)            
+            setActualizar(actualizar*(-1))
+        })
+        .catch(err=>console.log(err)) 
     }
+    //borrar pago
     const handleDeletePay = (registro)=>{
         console.log("registro a eliminar: "+registro.name)
         
@@ -181,31 +191,18 @@ const General = () => {
         
         console.log('valor: '+event.target.value)
     }
+
     //calculando los datos para el alta, actualiza datosEditar
     const handleChangeCalculatedAlta = (event)=>{
         //editar en el cambio tiempo real
-        //console.log("entro a calculado handleChangeCalculatedAlta importe: "+event.target.value)
-        
-        //--
+               
+        //--se filtra proveedor especifico para tener los descuentosy retenciones del mismo del mismo
         const uneProvider = dataProviders.find((provider) => provider.idproviders === parseInt(datosEditar.id_providers, 10));
-        
-        console.log("datos del proveedor")
-        console.log(uneProvider)
-        //console.log("datos del event.target.value :"+event.target.value)
-        //console.log("datos del updatebalance.initial_amount :"+updateBalance.initial_amount)
-        
-        //--
-        /* const updateBalanceEnd = updateBalance.initial_amount - event.target.value
-        console.log('updatebalance a sumar: '+ updateBalanceEnd)
-        console.log('balance actual: '+ updateBalance.initial_balance)
-        console.log('balance NUEVO: '+ (updateBalance.initial_balance+updateBalanceEnd))
-        setUpdateBalance({
-            initial_amount:updateBalance.initial_amount,
-            initial_balance:updateBalance.initial_balance,
-            new_balance:(updateBalance.initial_balance+updateBalanceEnd)
-        }) */
-        
-        //--
+     
+        //se filtra un fondo especifico para utilizar el balance
+        const uneFondo = dataFondo.find((fondo)=>fondo.id=== parseInt(datosEditar.id_fondo,10))
+              
+        //si el importe facturado es mayor a 9999.99 se calculan retenciones
         if([event.target.value]>9999.99){
             console.log("importe mayores a 9999.99")
 
@@ -230,7 +227,7 @@ const General = () => {
                     -retIva
                     -retGan
                     -retSuss,
-                saldo_fondo: 0 //updateBalanceEnd+updateBalance.initial_balance
+                saldo_fondo: uneFondo.balance - [event.target.value]
             }))
         }else{
             console.log("importes inferiores a 9999.99")
@@ -243,7 +240,7 @@ const General = () => {
                 desc_gan: 0.0,
                 desc_suss: 0.0,
                 importe_pagar: [event.target.value],
-                saldo_fondo: 0 //updateBalanceEnd+updateBalance.initial_balance
+                saldo_fondo: uneFondo.balance - [event.target.value] 
                     
             }))
         }
