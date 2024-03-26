@@ -57,7 +57,7 @@ const General = () => {
         .catch(err=>console.log(err))
 
     }
-    //alta de un gasto general, utilizando dataEditar, actualizacion de balance en fondo
+    //*alta de un gasto general, utilizando dataEditar, actualizacion de balance en fondo
     const handleAlta = (registro)=>{
         
         console.log('iniciando Alta en front, name: '+registro.id_providers+' importe_f: '+registro.importe_f)
@@ -66,7 +66,7 @@ const General = () => {
 
         console.log(registro)
 
-       /* axios.post(`http://localhost:8081/gastogralnew`, registro)
+       axios.post(`http://localhost:8081/gastogralnew`, registro)
         .then(res=>{
             console.log('res del post en el front', res.data)
         })
@@ -79,7 +79,8 @@ const General = () => {
             console.log(res)            
             setActualizar(actualizar*(-1))
         })
-        .catch(err=>console.log(err))  */
+        .catch(err=>console.log(err)) 
+        setActualizar(actualizar*(-1))
     }
     //borrar pago
     const handleDeletePay = (registro)=>{
@@ -88,15 +89,15 @@ const General = () => {
         axios.delete(`http://localhost:8081/deletepay/${registro.id}`)
         .then(res=>{
             //se actualiza fondo
-            console.log("nuevo fondo: "+updateBalance.new_balance)
-            updateBalancedb(1)
+            console.log("nuevo fondo: "+registro.saldo_fondo+registro.importe_f)
+            //updateBalancedb(1)
 
             console.log('registro actualizado en front')
             console.log(res)
             //actualiza pagina
-            setActualizar(actualizar*(-1))
         })
         .catch(err=>console.log(err))
+        setActualizar(actualizar*(-1))
 
     }
     //al cambiar campos del formulario ctualizo datosEditar y guardo el valor actual
@@ -449,14 +450,15 @@ const General = () => {
                                             data-bs-toggle="modal" data-bs-target="#staticBackdropEditar">
                                                 <AiOutlineEdit />
                                         </button>
+                                        {/* Borrar pago */}
                                         <button 
                                             type='button'
                                             onClick={()=>{
                                                 handleDatos(d)
-                                                setUpdateBalance(preUpdateBalance=>({
+                                                /* setUpdateBalance(preUpdateBalance=>({
                                                     ...preUpdateBalance,
                                                     new_balance: datosEditar.saldo_fondo + datosEditar.importe_f
-                                                }))
+                                                })) */
                                                 //setDatosEditar(d)
                                                 //console.log(d)
                                             }}
@@ -484,7 +486,7 @@ const General = () => {
                 </tbody>    
             </table>
         </div>
-      {/*modal para alta datos */}
+      {/*modal para alta datos=> pendiente: saldo negativo, carga de alta sin onChange */}
       <div className="modal fade" id="staticBackdropAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">

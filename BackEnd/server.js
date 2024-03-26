@@ -168,6 +168,7 @@ app.delete('/deletepay/:id',(req,res)=>{
             return res.json(result)
         }
     )
+    //actualizar fondo db con el saldo_fondo mas importe_f, 
 })
 
 //trabajando con general
