@@ -62,11 +62,11 @@ const General = () => {
         
         console.log('iniciando Alta en front, name: '+registro.id_providers+' importe_f: '+registro.importe_f)
         console.log('actualizacion de gasto_gral y Fondo.balance')
-        console.log('los registros en datosEditar don:')
+        console.log('los registros en datosEditar son:')
 
         console.log(registro)
 
-       axios.post(`http://localhost:8081/gastogralnew`, registro)
+       /* axios.post(`http://localhost:8081/gastogralnew`, registro)
         .then(res=>{
             console.log('res del post en el front', res.data)
         })
@@ -79,7 +79,7 @@ const General = () => {
             console.log(res)            
             setActualizar(actualizar*(-1))
         })
-        .catch(err=>console.log(err)) 
+        .catch(err=>console.log(err))  */
     }
     //borrar pago
     const handleDeletePay = (registro)=>{
@@ -116,6 +116,8 @@ const General = () => {
         }))
         console.log('handlechange-> name: '+event.target.name+', valor: '+event.target.value)
     }
+    
+   
     //actualiza el numero de fondo en datosEditar
     const handleChangeNumberFondo = (event)=>{
         //console.log(parseInt(event.target.value)+0)
@@ -297,6 +299,11 @@ const General = () => {
         //console.log(data)
         console.log(datosEditar)
     }
+    //actualiza datos a editar, con datos especificos
+    const handleDatosDefault = ()=>{
+        
+        
+    }
     //retorna el proveedor de id solicitado en forma de arreglo ejemplo: nameProvider(idbuscado)['businessname']
     const nameProvider = (idprovider)=>{
         if(idprovider){
@@ -385,7 +392,7 @@ const General = () => {
                     <label htmlFor="floatingInputGroup1">Name</label>
                 </div>
                 <span className="input-group-text">
-                    <button className="btn btn-light " data-bs-toggle="modal" data-bs-target="#staticBackdropAlta">
+                    <button className="btn btn-light " data-bs-toggle="modal" data-bs-target="#staticBackdropAlta" >
 
                         <MdLibraryAdd className=''/>
                     </button>
@@ -490,7 +497,7 @@ const General = () => {
                     
                     {/* <input name='id_fondo' title='Numero de Libramiento' onChange={handleChange} placeholder='cargar numero libramiento' className='form-control rounded-3 mb-1' type='number'></input>    
                      */}
-                    <select id="opcionesFondo" name='id_fondo' title='Seleccionar el numero de libramiento' className='form-control rounded-3 mb-1' onChange={handleChangeNumberFondo}>
+                    <select id="opcionesFondo" name='id_fondo' title='Seleccionar el numero de libramiento' className='form-control rounded-3 mb-1' onChange={handleChangeNumberFondo} value={datosEditar.id_fondo}>
                         {dataFondo.map((d,i)=>(
                             <option key={i} value={d.id}>{d.id}</option>                                                                      
                         ))}                   
@@ -528,11 +535,15 @@ const General = () => {
                 
             </div>
             <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{setActualizar(actualizar*(-1))}}>Close</button>
+                <button type="button" 
+                        className="btn btn-secondary" data-bs-dismiss="modal" 
+                        onClick={()=>{setActualizar(actualizar*(-1))
+                                      handleDatosDefault()}}>Close</button>
                 <button 
                     onClick={()=>{
                         handleAlta(datosEditar)
                         setActualizar(actualizar*(-1))
+                        
                         //updateBalancedb(datosEditar.saldo_fondo)
                         //console.log('actualizar datos del fondo')
                     }} 
